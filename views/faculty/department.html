@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" th:charset="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="'Danh sách các đơn vị - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLES -->
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/animate.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet" media="screen">
+    <!-- END MAIN LEVEL STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link th:href="@{/resources/css/wad/admin/treeview.css}" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- NAVIGATION -->
+    <div th:replace="/faculty/tpl/header :: navigation"></div>
+    <!-- END NAVIGATION -->
+
+    <div id="page-wrapper" class="gray-bg">
+
+        <!-- HEADER -->
+        <div th:replace="/faculty/tpl/header :: header"></div>
+        <!-- END HEADER -->
+
+        <!-- PAGE TITLE -->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2 id="dsdv">Danh sách các đơn vị</h2>
+            </div>
+        </div>
+        <!-- END PAGE TITLE -->
+
+        <!-- PAGE CONTENT -->
+        <section id="tree">
+            <div th:fragment="treeFragment" class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <div class="ibox-tools">
+                                    <button type="button" class="btn btn-primary" id="add-department-btn">Thêm đơn vị</button>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="tree">
+                                    <ul>
+                                        <li th:each="department : ${departmentList}">
+                                            <div class="row">
+                                                <span th:text="${department.name}"></span>
+                                                <input type="hidden" th:value="${department.departmentId}"/>
+                                                <form th:action="@{/ws/department}" style="display: inline-block">
+                                                    <i class="fa fa-pencil-square-o font-primary update-btn" aria-hidden="true" title="Cập nhật"></i>
+                                                </form>
+                                                <form th:action="@{'/ws/department/' + ${department.departmentId}}" style="display: inline-block">
+                                                    <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
+                                                </form>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- END PAGE CONTENT -->
+        <input type="hidden" id="faculty-id" th:value="${session.uetthesis_faculty_id}"/>
+
+        <div class="modal inmodal fade" id="amodal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="amodal-title">Thêm đơn vị</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="amodal-form" role="form" class="form-horizontal" th:action="@{/ws/department}">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="amodal-name">Đơn vị: </label>
+                                <div class="col-md-6">
+                                    <input type="hidden" id="amodal-id"/>
+                                    <input placeholder="Nhập tên đơn vị" id="amodal-name" class="form-control" type="text" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="amodal-submit-btn">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal inmodal fade" id="emodal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog modal-md">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="emodal-title">Cập nhật đơn vị</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="emodal-form" role="form" class="form-horizontal" th:action="@{/ws/department}">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="amodal-name">Đơn vị: </label>
+                                <div class="col-md-6">
+                                    <input type="hidden" id="emodal-id"/>
+                                    <input placeholder="Nhập tên đơn vị" id="emodal-name" class="form-control" type="text" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Hủy</button>
+                        <button type="button" class="btn btn-primary" id="emodal-submit-btn">Cập nhật</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div th:replace="/faculty/tpl/footer :: footer"></div>
+        <!-- END FOOTER -->
+
+    </div>
+</div>
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" th:src="@{/resources/js/wad/treeview.js}"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script th:src="@{/resources/js/inspinia.js}"></script>
+<script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<script th:inline="javascript">
+    function retrieveTree() {
+        $('#tree').load(/*[[@{/faculty/department/list}]]*/, function () {
+            generateTree();
+        });
+    };
+
+    $('#emodal-submit-btn').click(function() {
+        var form = $('#emodal-form');
+        var departmentId = $('#emodal-id').val();
+        var department = {
+            name: $('#emodal-name').val(),
+        };
+        $.ajax({
+            url: form.attr('action') + '/' + departmentId,
+            data: JSON.stringify(department),
+            type: 'POST',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function() {
+                $('#emodal-id').val('');
+                $('#emodal-name').val('');
+                retrieveTree();
+                $('#emodal').modal('hide');
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    });
+
+    $('#amodal-submit-btn').click(function() {
+        var form = $('#amodal-form');
+        var department = {
+            name: $('#amodal-name').val(),
+            faculty: {id: $('#faculty-id').val()}
+        };
+        $.ajax({
+            url: form.attr('action'),
+            data: JSON.stringify(department),
+            type: 'POST',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function() {
+                $('#amodal-name').val('');
+                retrieveTree();
+                $('#amodal').modal('hide');
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    });
+
+    $(document).on('click', '#add-department-btn', function() {
+        $('#amodal').modal('show');
+    });
+
+    $(document).on('click', '.update-btn', function() {
+        console.log($(this).parent().prev('input'));
+        $('#emodal-id').val($(this).closest('div').find('input').first().val());
+        $('#emodal-name').val($(this).closest('div').find('span').first().text());
+        $('#emodal').modal('show');
+    });
+
+    $(document).on('click', '.delete-btn', function() {
+        var form = $(this).closest('form');
+        $.ajax({
+            url: form.attr('action'),
+            type: "DELETE",
+            success: function (rsp) {
+                retrieveTree();
+            },
+            error: function(e) {
+                alert(JSON.stringify(e));
+            }
+        });
+    });
+
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
+    $(document).ajaxSend(function(e, xhr, options) {
+        xhr.setRequestHeader(header, token);
+    });
+</script>
+<!-- END INLINE SCRIPTS -->
+</body>
+
+</html>

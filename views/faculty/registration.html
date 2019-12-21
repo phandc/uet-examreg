@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:charset="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="'Quản lý đợt đăng ký - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLES -->
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/animate.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet" media="screen">
+    <!-- END MAIN LEVEL STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link th:href="@{/resources/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/vendor/bootstrap-toggle/css/bootstrap-toggle.css}" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- NAVIGATION -->
+    <div th:replace="/faculty/tpl/header :: navigation"></div>
+    <!-- END NAVIGATION -->
+
+    <div id="page-wrapper" class="gray-bg">
+
+        <!-- HEADER -->
+        <div th:replace="/faculty/tpl/header :: header"></div>
+        <!-- END HEADER -->
+
+        <!-- PAGE TITLE -->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2 id="dsdv">Quản lý đợt đăng ký</h2>
+            </div>
+        </div>
+        <!-- END PAGE TITLE -->
+
+        <!-- PAGE CONTENT -->
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Mở/Đóng đăng ký</h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <form th:action="@{/faculty/registration/switch}">
+                                <div class="form-group">
+                                    <label>Trạng thái cho phép đăng ký khóa luận</label>
+                                    <div th:switch="${registrationStatus}">
+                                        <input th:case="'off'" class="registration_button" type="checkbox"/>
+                                        <input th:case="'on'" class="registration_button" type="checkbox" checked/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END PAGE CONTENT -->
+
+        <!-- FOOTER -->
+        <div th:replace="/faculty/tpl/footer :: footer"></div>
+        <!-- END FOOTER -->
+
+    </div>
+</div>
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" th:src="@{/resources/vendor/bootstrap-toggle/js/bootstrap-toggle.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/bootstrap-markdown/bootstrap-markdown.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/bootstrap-markdown/markdown.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/iCheck/icheck.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/dropzone/dropzone.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/dataTables/datatables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/wad/faculty/thesis.js}"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script th:src="@{/resources/js/inspinia.js}"></script>
+<script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<script type="text/javascript">
+    $(function() {
+        $('.registration_button').bootstrapToggle({
+            on: 'Mở',
+            off: 'Đóng'
+        });
+    });
+
+    $('.registration_button').change(function() {
+        var form = $(this).closest('form');
+        $.ajax({
+            url: form.attr('action'),
+            type: "POST",
+            beforeSend: function(xhr) {
+                var token = $("meta[name='_csrf']").attr("content");
+                var header = $("meta[name='_csrf_header']").attr("content");
+                xhr.setRequestHeader(header, token);
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.setRequestHeader("Content-Type", "application/json");
+            },
+            success: function (rsp) {
+                alert(rsp.message);
+            }
+        });
+    });
+</script>
+<!-- END INLINE SCRIPTS -->
+</body>
+
+</html>

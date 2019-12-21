@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org' th:charset='UTF-8'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='_csrf' th:content='${_csrf.token}'/>
+    <meta name='_csrf_header' th:content='${_csrf.headerName}'/>
+    <title th:text="'Hội đồng bảo vệ KLTN - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLES -->
+    <link th:href='@{/resources/css/bootstrap.min.css}' rel='stylesheet' media='screen'>
+    <link th:href='@{/resources/vendor/font-awesome/css/font-awesome.css}' rel='stylesheet' media='screen'>
+    <link th:href='@{/resources/css/animate.css}' rel='stylesheet' media='screen'>
+    <link th:href='@{/resources/css/style.css}' rel='stylesheet' media='screen'>
+    <!-- END MAIN LEVEL STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link th:href="@{/resources/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/wad/faculty/council.css}" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+</head>
+<body>
+    <!-- NAVIGATION -->
+    <div th:replace='/faculty/tpl/header :: navigation'></div>
+    <!-- END NAVIGATION -->
+
+    <div id='page-wrapper' class='gray-bg'>
+
+        <!-- HEADER -->
+        <div th:replace='/faculty/tpl/header :: header'></div>
+        <!-- END HEADER -->
+
+        <!-- PAGE TITLE -->
+        <div class='row wrapper border-bottom white-bg page-heading'>
+            <div class='col-lg-10'>
+                <h2 id='dsdv'>Hôi đồng bảo vệ KLTN</h2>
+            </div>
+        </div>
+        <!-- END PAGE TITLE -->
+
+        <!-- PAGE CONTENT -->
+        <div id='councilManager' class='wrapper wrapper-content animated fadeInRight'>
+            <div class='row'>
+                <div class='col-lg-12'>
+                    <div class='ibox float-e-margins'>
+                        <div class='ibox-title'>
+                            <div class='row'>
+                                <div class='col-md-12 m-b-xs'>
+                                    <button class='btn btn-primary crt-council-title-btn' type='button'>
+                                        <i class='fa fa-plus'></i>
+                                        Tạo hội đồng
+                                    </button>
+                                    <button class="btn btn-success" type="button" id="council_export_btn"><i class="fa fa-file-word-o"></i> Xuất đề nghị hội đồng</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='ibox-content crt-council-content'>
+                            <div class='row crt-std-wrap'>
+                                <div class='col-md-12'>
+                                    <h3 class='m-t-none m-b'>Điền thông tin cho hội đồng</h3>
+                                    <form id='createForm' th:action='@{/ws/council}'>
+                                        <div class='row'>
+                                            <div class='form-group col-md-8'>
+                                                <label for='councilName'>Tên hội đồng:</label>
+                                                <div>
+                                                    <input class='form-control' id='councilName' name='councilName'
+                                                           placeholder='Nhập tên hội đồng' type='text'
+                                                           autocomplete="off">
+                                                    <input type='hidden' id='councilId'>
+                                                </div>
+                                            </div>
+
+                                            <div class='form-group col-md-4'>
+                                                <label for='location'>Địa điểm:</label>
+                                                <div>
+                                                    <input class='form-control' id='location' name='location' type='text'>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='row'>
+                                            <div class='form-group col-md-6'>
+                                                <label for=>Chủ tịch:</label>
+                                                <div>
+                                                    <input class='form-control' id='president' name='presidentName'
+                                                           placeholder='Nhập tên giảng viên' type='text'
+                                                           autocomplete="off">
+                                                    <input type='hidden'
+                                                           id='presidentId'>
+                                                </div>
+                                            </div>
+
+                                            <div class='form-group col-md-6'>
+                                                <label>Thư ký:</label>
+                                                <div>
+                                                    <input class='form-control' id='secretary' name='secretaryName'
+                                                           placeholder='Nhập tên giảng viên' type='text'
+                                                           autocomplete="off">
+                                                    <input type='hidden'
+                                                           id='secretaryId'>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class='row'>
+                                            <div class='form-group col-md-12'>
+                                                <label>Cán bộ phản biện:</label>
+                                                <div>
+                                                    <input class='reviewer form-control' name='reviewerName'
+                                                           placeholder='Nhập tên giảng viên' type='text'
+                                                           autocomplete="off">
+                                                    <input type='hidden' class='reviewerId'>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class='row add-reviewer'>
+                                            <div class='form-group col-md-12'>
+                                                <button class='btn btn-primary add-reviewer-btn' type="button">
+                                                    Thêm cán bộ phản biện
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class='row'>
+                                            <div class='form-group col-md-12'>
+                                                <div class='col-md-12'>
+                                                    <button class='btn pull-left btn-primary crt-council-btn' type='submit'>
+                                                        <i class='fa fa-check'></i>
+                                                        Tạo
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="councils-wrapper">
+                <div th:fragment="councilContent">
+                    <div class="council-content" th:each='council: ${councilList}'>
+                        <input type="hidden" class="council-id" th:value="${council.getCouncilId()}"/>
+                        <div class='row'>
+                        <div class='col-md-12'>
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5 th:text="${council.getCouncilName()}"></h5>
+                                    <div class="ibox-tools">
+                                        <a class="collapse-link">
+                                            <i class="fa fa-chevron-up"></i>
+                                        </a>
+                                        <a class="delete-council">
+                                            <i class="fa fa-times"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="tabs-container">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a data-toggle="tab" th:href="'#tab-'+${council.getCouncilId()}+'1'" aria-expanded="false">
+                                                    Danh sách khóa luận phản biện
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a data-toggle="tab" th:href="'#tab-'+${council.getCouncilId()}+'2'" aria-expanded="true">
+                                                    Thông tin hội đồng
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div th:id="'tab-'+${council.getCouncilId()}+'1'" class="tab-pane active">
+                                                <button class='btn btn-primary add-thesis-title-btn' type="button" style="margin-top: 5px;">
+                                                    <i class='fa fa-plus'></i>
+                                                    Thêm khóa luận phản biện
+                                                </button>
+                                                <div class="add-thesis-content">
+                                                    <div class="row">
+                                                        <input type="hidden" th:id="'stdId'+${council.getCouncilId()}">
+                                                        <div class="col-md-3 form-group">
+                                                            <label class="col-md-12 control-label">Mã sinh viên: </label>
+                                                            <div class="col-md-12">
+                                                                <input class="stdCode form-control" type="text"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 form-group">
+                                                            <label class="col-md-12 control-label">Tên sinh viên: </label>
+                                                            <div class="col-md-12">
+                                                                <input th:id="'stdName'+${council.getCouncilId()}" class="form-control" type="text" disabled/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 form-group">
+                                                            <label class="col-md-12 control-label">Ngày sinh: </label>
+                                                            <div class="col-md-12">
+                                                                <input th:id="'stdDob'+${council.getCouncilId()}" class="form-control" type="text" disabled/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3 form-group">
+                                                            <label class="col-md-12 control-label">Ngành: </label>
+                                                            <div class="col-md-12">
+                                                                <input th:id="'stdSpec'+${council.getCouncilId()}" class="form-control" type="text" disabled/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-group">
+                                                            <label class="col-md-12 control-label">Đề tài: </label>
+                                                            <div class="col-md-12">
+                                                                <input th:id="'thesisName'+${council.getCouncilId()}" class="form-control" type="text" disabled/>
+                                                                <input th:id="'thesisId'+${council.getCouncilId()}" type="hidden" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3 form-group">
+                                                            <label class="col-md-12 control-label">GV Hướng dẫn: </label>
+                                                            <div class="col-md-12">
+                                                                <input th:id="'thesisSup'+${council.getCouncilId()}" class="form-control" type="text" disabled/>
+                                                                <input th:id="'thesisSupId'+${council.getCouncilId()}" type="hidden"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-3 form-group">
+                                                            <label class="col-md-12 control-label">GV đồng hướng dẫn: </label>
+                                                            <div class="col-md-12">
+                                                                <input th:id="'thesisCoSup'+${council.getCouncilId()}" class="form-control" type="text" disabled/>
+                                                                <input th:id="'thesisCoSupId'+${council.getCouncilId()}" type="hidden"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-6 form-group">
+                                                            <label class="col-md-12 control-label">Giảng viên phản biện 1: </label>
+                                                            <div class="col-md-12">
+                                                                <input class="firstReviewer form-control" type="text"/>
+                                                                <input th:id="'firstReviewerId'+${council.getCouncilId()}" type="hidden"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6 form-group">
+                                                            <label class="col-md-12 control-label">Giảng viên phản biện 2: </label>
+                                                            <div class="col-md-12">
+                                                                <input class="secondReviewer form-control" type="text"F/>
+                                                                <input th:id="'secondReviewerId'+${council.getCouncilId()}" type="hidden"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='row'>
+                                                        <div class='col-md-12'>
+                                                            <button class='btn pull-right btn-primary add-thesis-btn' type='submit'>
+                                                                Thêm khóa luận
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <section th:id="'thesis-list-' + ${council.getCouncilId()}">
+                                                    <div th:fragment="'thesisContent-' + ${council.getCouncilId()}" class="ibox-content">
+                                                        <div class="table-responsive">
+                                                            <table class="thesis_table table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Tên sinh viên</th>
+                                                                    <th>Ngày sinh</th>
+                                                                    <th>Đề tài</th>
+                                                                    <th>GV Phản biện 1</th>
+                                                                    <th>Nơi công tác</th>
+                                                                    <th>GV Phản biện 2</th>
+                                                                    <th>Nơi công tác</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each='thesis: ${council.getTheses()}'>
+                                                                    <td class="thesisStdName" th:text="${thesis.getStudent().getName()}"></td>
+                                                                    <td class="thesisStdDob" th:text="${#dates.format(thesis.student.dob, 'yyyy-MM-dd')}"></td>
+                                                                    <td class="thesisName" th:text="${thesis.getTitle()}"></td>
+                                                                    <td class="firstThesisReviewer" th:text="${thesis.getFirstReviewer().getName()}"></td>
+                                                                    <td class="firstReviewerOffice">Trường ĐHCN</td>
+                                                                    <td class="secondThesisReviewer" th:text="${thesis.getSecondReviewer().getName()}"></td>
+                                                                    <td class="secondReviewerOffice">Trường ĐHCN</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div th:id="'tab-'+${council.getCouncilId()}+'2'" class="tab-pane">
+                                                <div>
+                                                    <h3>Thông tin hội đồng:</h3>
+                                                </div>
+                                                <div class="ibox-content">
+                                                    <div class="form-horizontal council-info">
+                                                        <div class="form-group">
+                                                            <div class="col-md-6">
+                                                                <label class="col-md-2 control-label">Chủ tịch:</label>
+                                                                <div class="col-md-10">
+                                                                    <p class="form-control-static"
+                                                                       th:text="${council.getPresident().getDegree() +
+                                                                       ' ' + council.getPresident().getName()}"></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="col-md-2 control-label">Thư kí:</label>
+                                                                <div class="col-md-10">
+                                                                    <p class="form-control-static" th:text="${council.getSecretary().getDegree() +
+                                                                       ' ' + council.getSecretary().getName()}"></p></p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label class="col-md-2 control-label">Địa điểm:</label>
+                                                                <div class="col-md-10">
+                                                                    <p class="form-control-static" th:text="${council.getLocation()}"></p></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <section th:id="'reviewer-list-' + ${council.getCouncilId()}">
+                                                        <div>
+                                                            <h3>Danh sách giảng viên thành viên:</h3>
+                                                        </div>
+                                                        <div>
+                                                            <button class="btn btn-primary crt-reviewer-title-btn" type="button">
+                                                                <i class="fa fa-plus"></i>
+                                                                Thêm giảng viên
+                                                            </button>
+                                                            <div class="add-reviewer-content">
+                                                                <div class='row'>
+                                                                    <div class='form-group col-md-12'>
+                                                                        <label class="col-md-12">Giảng viên:</label>
+                                                                        <div class="col-md-8">
+                                                                            <input class='addReviewer form-control' name='reviewerName'
+                                                                                   placeholder='Nhập tên giảng viên' type='text'
+                                                                                   autocomplete="off">
+                                                                            <label th:id="'addReviewer-message-' + ${council.getCouncilId()}"></label>
+                                                                            <input type='hidden' class='addReviewerId'>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <button class="btn btn-primary add-reviewer-accept-btn" type="button">
+                                                                                <i class="fa fa-check"></i>
+                                                                                Thêm giảng viên
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div th:fragment="'reviewerContent-' + ${council.getCouncilId()}" class="ibox-content">
+                                                            <div class="table-responsive">
+                                                                <table class="reviewer_table table table-striped table-bordered table-hover">
+                                                                    <thead>
+                                                                    <tr>
+                                                                        <th><input type="checkbox" class="i-checks" name="cbox-total"></th>
+                                                                        <th>Tên giảng viên</th>
+                                                                        <th>Nơi công tác</th>
+                                                                        <th>Tùy chọn</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                    <tr th:each="reviewer : ${council.getReviewers()}" th:if="${(reviewer.getSupervisorId() != council.getPresident().getSupervisorId()) && (reviewer.getSupervisorId() != council.getSecretary().getSupervisorId())}">
+
+                                                                            <input type="hidden" class="reviewerId" th:value="${reviewer.getSupervisorId()}"/>
+                                                                            <td><input type="checkbox" class="i-checks" name="cbox"></td>
+                                                                            <td class="reviewerName" th:text="${reviewer.getDegree() + ' ' + reviewer.getName()}"></td>
+                                                                            <td class="reviewerLoc">Trường ĐHCN</td>
+                                                                            <td>
+                                                                                <i class="fa fa-trash font-danger" aria-hidden="true"></i>
+                                                                            </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        <!--<input type='hidden' id='rendered_view_path' th:value='@{/faculty/student}'/>-->
+        <input type='hidden' id='export_council_path' th:value='@{/faculty/export/council2}'/>
+        <!-- END PAGE CONTENT -->
+
+        <!-- FOOTER -->
+        <div th:replace='/admin/tpl/footer :: footer'></div>
+        <!-- END FOOTER -->
+    </div>
+
+    <div id="removeConfirmReviewerModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Xóa giảng viên phản biện</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="alert alert-danger">
+                            Xác nhận xóa giảng viên phản biện.
+                        </div>
+                        <input type="hidden" id="reviewerIdDel"/>
+
+                        <div class="pull-right">
+                            <button class="btn btn-default pull-right" type="button" data-dismiss="modal">
+                                Đóng
+                            </button>
+
+                            <button class="btn btn-danger pull-right" id="del-reviewer-btn" data-dismiss="modal" type="submit">
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="removeConfirmCouncilModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Xóa hội đồng</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="alert alert-danger">
+                            Bạn chắc chắn muốn xóa hội đồng này?
+                        </div>
+                        <input type="hidden" id="councilIdDel"/>
+
+                        <div class="pull-right">
+                            <button class="btn btn-default pull-right" type="button" data-dismiss="modal">
+                                Đóng
+                            </button>
+
+                            <button class="btn btn-danger pull-right" id="del-council-btn" data-dismiss="modal" type="submit">
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BEGIN MAIN LEVEL SCRIPTS -->
+    <script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+    <script th:src="@{/resources/js/plugins/typeahead/bootstrap3-typeahead.js}"></script>
+    <!-- END MAIN LEVEL SCRIPTS -->
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+    <script type="text/javascript" th:src="@{/resources/js/plugins/iCheck/icheck.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/plugins/dataTables/datatables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/wad/faculty/council.js}"></script>
+    <!-- END PAGE LEVEL SCRIPTS -->
+
+    <!-- BEGIN CUSTOM SCRIPTS -->
+    <script th:src="@{/resources/js/inspinia.js}"></script>
+    <script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+    <!-- END CUSTOM SCRIPTS -->
+
+    <!-- BEGIN INLINE SCRIPTS -->
+    <!-- END INLINE SCRIPTS -->
+</body>
+</html>

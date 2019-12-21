@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:charset="UTF-8">
+<body>
+        <!-- navigation fragment -->
+        <nav th:fragment="navigation" class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element">
+                            <!--<span><img alt="image" class="img-circle" src="img/profile_small.jpg" /></span>-->
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear">
+                            <span class="block m-t-xs"><strong th:text="${session.uetthesis_fullname}" class="font-bold"></strong></span>
+                            <span class="text-muted text-xs block">Quản trị viên khoa<b class="caret"></b></span>
+                        </span>
+                            </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a th:href="@{/logout}">Logout</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            TM
+                        </div>
+                    </li>
+                    <li>
+                        <a th:href="@{/faculty/registration}"><i class="fa fa-th-large"></i> <span class="nav-label">Quản lý đợt đăng ký</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Quản lý khóa luận</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse in" style="">
+                            <li><a th:href="@{/faculty/council}">Danh sách hội đồng</a></li>
+                            <li><a th:href="@{/faculty/thesis}">Danh sách khóa luận</a></li>
+                            <li><a th:href="@{/faculty/student}">Danh sách sinh viên</a></li>
+                            <li><a th:href="@{/faculty/supervisor}">Danh sách giảng viên</a></li>
+                            <li><a th:href="@{/faculty/thesis/modification-request}">Xử lý yêu cầu</a></li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Quản lý danh sách</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+                            <li><a th:href="@{/faculty/research}">Danh sách lĩnh vực</a></li>
+                            <li><a th:href="@{/faculty/department}">Danh sách đơn vị</a></li>
+                            <li><a th:href="@{/faculty/specialization}">Danh sách ngành</a></li>
+                            <li><a th:href="@{/faculty/class}">Danh sách lớp</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+            <!-- header fragment -->
+            <div th:fragment="header" class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links col-md-9" style="padding-left:30px;">
+                        <li><h2 style="font-weight: 500;">HỆ THỐNG QUẢN LÝ KLTN - ĐH CÔNG NGHỆ, ĐHQGHN</h2></li>
+                    </ul>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a th:href="@{/logout}">
+                                <i class="fa fa-sign-out"></i> Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+</body>
+</html>

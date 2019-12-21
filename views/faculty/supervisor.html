@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:charset="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title th:text="'Danh sách giảng viên - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLES -->
+    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/animate.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/style.css}" rel="stylesheet" media="screen">
+    <!-- END MAIN LEVEL STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link th:href="@{/resources/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
+    <link th:href="@{/resources/css/wad/faculty/supervisor.css}" rel="stylesheet" media="screen">
+    <link th:href="@{/resources/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css}" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+
+</head>
+<body>
+<div id="wrapper">
+
+    <!-- NAVIGATION -->
+    <div th:replace="/faculty/tpl/header :: navigation"></div>
+    <!-- END NAVIGATION -->
+
+    <div id="page-wrapper" class="gray-bg">
+
+        <!-- HEADER -->
+        <div th:replace="/faculty/tpl/header :: header"></div>
+        <!-- END HEADER -->
+
+        <!-- PAGE TITLE -->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2 id="dsdv">Danh sách giảng viên</h2>
+            </div>
+        </div>
+        <!-- END PAGE TITLE -->
+
+        <!-- PAGE CONTENT -->
+        <div id="supervisorManager" class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <div class="row">
+                                <div class="col-md-12 m-b-xs">
+                                    <button class="btn btn-primary crt-sv-title-btn" type="button">
+                                        <i class="fa fa-plus"></i>
+                                        Thêm giảng viên
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ibox-content crt-sv-content">
+                            <div class="crt-sv-wrap">
+                                <div class="form-horizontal col-md-6 b-r">
+                                    <h3 class="m-t-none m-b">Điền thông tin cho giảng viên</h3>
+                                    <form id="createForm" th:action="@{/ws/supervisor}">
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-3 control-label" for="svCode">Mã GV:</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" id="svCode" name="svCode" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-3 control-label" for="svName">Họ và tên:</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" id="svName" name="svName" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-3 control-label" for="svDegree">Học vị, học hàm:</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" id="svDegree" name="svDegree" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-3 control-label" for="svEmail">Email:</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" id="svEmail" name="svEmail" type="text">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-3 control-label" for="svFaculty">Khoa:</label>
+                                                <div class="col-md-9">
+                                                    <input class="form-control" id="svFaculty" name="svFaculty" readonly type="text" th:value="${#session.getAttribute('uetthesis_faculty_name')}">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <label class="col-md-3 control-label" for="svDepart">Đơn vị:</label>
+                                                <div class="col-md-9">
+                                                    <select class="form-control" id="svDepart" th:fragment="departmentList" name="svDepart">
+                                                        <option th:each="dp : ${dpList}"
+                                                                th:value="${dp.getDepartmentId()}"
+                                                                th:text="${dp.getName()}"></option>
+                                                    </select>
+                                                    <div class="notice">
+                                                        <i class="fa fa-info-circle font-info"></i>
+                                                        <span>
+                                                            Nếu không tìm thấy đơn vị
+                                                            <button class="btn btn-info btn-label" id="crt-depart-btn-modal" type="button">
+                                                                Tạo đơn vị
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-12">
+                                                <button class="btn btn-primary pull-right crt-sv-btn" type="submit">
+                                                    Thêm giảng viên
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="col-md-6 sv-upload-form">
+                                    <h3 class="m-t-none m-b">Hoặc tải lên file <strong><underline>excel</underline></strong> chứa danh sách thông tin giảng viên</h3>
+                                    <form id="dropzoneForm1" class="dropzone" th:action="'./import/supervisor?' + ${_csrf.parameterName}+ '=' + ${_csrf.token}" enctype="multipart/form-data">
+                                        <button class="btn btn-primary" id="dropzone-button1" type="submit">
+                                            <i class="fa fa-upload"></i>
+                                            <span class="bold">Tải lên</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section id="supervisor-list">
+                            <div th:fragment="supervisorContent" class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="supervisor-table">
+                                        <thead>
+                                            <tr>
+                                                <th><input type="checkbox" class="i-checks" name="cbox-total"></th>
+                                                <th>Mã giảng viên</th>
+                                                <th>Họ và tên</th>
+                                                <th>Học vị, học hàm</th>
+                                                <th>Đơn vị</th>
+                                                <th>Email</th>
+                                                <th>Tùy chọn</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot style="display:table-header-group;">
+                                            <th></th>
+                                            <th>Mã giảng viên</th>
+                                            <th>Họ và tên</th>
+                                            <th>Học vị, học hàm</th>
+                                            <th>Đơn vị</th>
+                                            <th>Email</th>
+                                            <th></th>
+                                        </tfoot>
+                                        <tbody>
+                                        <tr th:each="sv: ${supervisorList}">
+                                            <input class="svId" type="hidden" th:value="${sv.supervisorId}">
+                                            <td><input type="checkbox" class="i-checks" name="cbox"></td>
+                                            <td class="svCode" th:text="${sv.getSupervisorCode()}"></td>
+                                            <td class="svName" th:text="${sv.getName()}"></td>
+                                            <td class="svDegree" th:text="${sv.getDegree()}"></td>
+                                            <td class="svDepart" th:text="${sv.getDepartment().getName()}"></td>
+                                            <td class="svEmail" th:text="${sv.getUser().getEmail()}"></td>
+                                            <td>
+                                                <i class="fa fa-pencil font-primary" aria-hidden="true"></i>
+                                                <i class="fa fa-trash font-danger" aria-hidden="true"></i>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="rendered_view_path" th:value="@{/faculty/supervisor}"/>
+        </div>
+        <!-- END PAGE CONTENT -->
+
+        <!-- FOOTER -->
+        <div th:replace="/admin/tpl/footer :: footer"></div>
+        <!-- END FOOTER -->
+
+    </div>
+</div>
+
+<div id="editSupervisorModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form id="editForm" th:action="@{/ws/supervisor}">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Thay đổi thông tin Giảng viên</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+                        <input type="hidden" id="svIdEdit">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-label" for="svCodeEdit">Mã GV:</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="svCodeEdit" name="svCodeEdit" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-label" for="svNameEdit">Họ và tên:</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="svNameEdit" name="svNameEdit" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-label" for="svDegreeEdit">Học vị, học hàm:</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="svDegreeEdit" name="svDegreeEdit" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-label" for="svEmailEdit">Email:</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="svEmailEdit" name="svEmailEdit" type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-label" for="svFacultyEdit">Khoa:</label>
+                                <div class="col-md-9">
+                                    <input class="form-control" id="svFacultyEdit" name="svFacultyEdit" readonly type="text" th:value="${#session.getAttribute('uetthesis_faculty_name')}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label class="col-md-2 control-label" for="svDepartEdit">Đơn vị:</label>
+                                <div class="col-md-9">
+                                    <select class="form-control" id="svDepartEdit" name="svDepartEdit">
+                                        <option th:each="depart : ${dpList}"
+                                                th:value="${depart.getDepartmentId()}"
+                                                th:text="${depart.getName()}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-default pull-right" type="submit" data-dismiss="modal">
+                            Đóng
+                        </button>
+
+                        <button class="btn btn-primary pull-right" type="submit">
+                            Lưu thay đổi
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="removeConfirmModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Xóa thông tin giảng viên</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger">
+                    Thông tin giảng viên bị xóa sẽ không thể khôi phục:
+                </div>
+                <input type="hidden" id="svIdDel"/>
+                <div class="form-horizontal">
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="col-md-2">Mã GV:</span>
+                            <div class="col-md-9">
+                                <label id="svCodeDel"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="col-md-2">Tên:</span>
+                            <div class="col-md-9">
+                                <label id="svNameDel"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="col-md-2">Học hàm, học vị:</span>
+                            <div class="col-md-9">
+                                <label id="svDegreeDel"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="col-md-2">Khoa:</span>
+                            <div class="col-md-9">
+                                <label id="svFacultyDel" th:text="${#session.getAttribute('uetthesis_faculty_name')}"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <span class="col-md-2">Đơn vị:</span>
+                            <div class="col-md-9">
+                                <label id="svDepartDel"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button class="btn btn-default pull-right" type="button" data-dismiss="modal">
+                        Đóng
+                    </button>
+
+                    <button class="btn btn-danger pull-right" id="del-sv-btn" data-dismiss="modal" type="submit">
+                        Xóa
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="createDepartModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Tạo đơn vị</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="departNameCrt">Tên khoa: </label>
+                        <div class="col-md-8">
+                            <input type="hidden" id="departFalcutyIdCrt" th:value="${#session.getAttribute('uetthesis_faculty_id')}">
+                            <input class="form-control" id="facultyNameCrt" th:value="${#session.getAttribute('uetthesis_faculty_name')}" type="text" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="departNameCrt">Tên đơn vị: </label>
+                        <div class="col-md-8">
+                            <input class="form-control" id="departNameCrt" placeholder="Nhập tên đơn vị" name="departNameCrt" type="text">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button class="btn btn-default pull-right" type="button" data-dismiss="modal">
+                        Đóng
+                    </button>
+
+                    <button class="btn btn-info pull-right" id="crt-depart-btn" data-dismiss="modal" type="submit">
+                        Tạo đơn vị
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="mail_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form id="send_mail_form" action="#">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Gửi email cho danh sách những người đã chọn</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input class="form-control" name="mail_title" id="mail_title" type="text" placeholder="Nhập tiêu đề email">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="mail_content" name="mail_content" data-provide="markdown" rows="10">*Nhập nội dung email ở đây*</textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-white" data-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Gửi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" th:src="@{/resources/js/plugins/validate/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/bootstrap-markdown/bootstrap-markdown.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/bootstrap-markdown/markdown.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/iCheck/icheck.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/dropzone/dropzone.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/plugins/dataTables/datatables.min.js}"></script>
+<script type="text/javascript" th:src="@{/resources/js/wad/faculty/supervisor.js}"></script>
+
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script th:src="@{/resources/js/inspinia.js}"></script>
+<script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<!-- END INLINE SCRIPTS -->
+</body>
+
+</html>
