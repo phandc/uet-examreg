@@ -31,9 +31,11 @@
     "node-pre-gyp": "^0.14.0",
     "nodemon": "^1.19.4",
     "popper.js": "^1.16.0",
+    "react": "^16.12.0",
     "read-excel-file": "^4.0.5",
     "request": "^2.88.0",
     "sequelize": "^5.21.2",
-    "react": "^16.12.0"
+    "ejs": "~2.6.1",
+    "http-errors": "~1.6.3"
   }
 }
