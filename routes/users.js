@@ -7,6 +7,9 @@ const multer = require('multer');
 
 const User = require('../model/user');
 
+
+let message = "";
+
 const user_router = express.Router();
 user_router.use(cors());
 
@@ -41,6 +44,9 @@ user_router.post('/register', (request, response) => {
     })
 })
 
+user_router.get('/login', function(req, res, next) {
+    res.render('login', { title: 'Login' });
+});
 
 
 user_router.post('/login', (request, response) => {
@@ -56,10 +62,12 @@ user_router.post('/login', (request, response) => {
                 })
 
                 if(user.dataValues.role === 'student'){
+                      message = "Đăng nhập thành công!"
                      return response.redirect('student/home');
                 }
                 else {
-                    return response.redirect('admin');
+                    message = "Đăng nhập thành công!"
+                    return response.redirect('admin/home');
                 }
 
               //  response.send({token : token});
@@ -68,7 +76,8 @@ user_router.post('/login', (request, response) => {
             }
         else
         {
-            response.status(400).json({error: 'User does not exist'})
+            message = "Tài khoản hoặc mật khẩu không đúng"
+            return response.redirect('login');
         }
     }}).catch(err => {
         console.log(err);
@@ -77,11 +86,13 @@ user_router.post('/login', (request, response) => {
 });
 
 user_router.get('/student/home', (request, response) =>{
+      console.log("message : " + message);
       response.render("student/home");
 })
 
-user_router.get('/admin', (request, response) =>{
-    response.render("admin");
+user_router.get('/admin/home', (request, response) =>{
+    console.log("message : " + message);
+    response.render("admin/home");
 })
 
 

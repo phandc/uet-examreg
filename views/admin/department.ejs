@@ -155,7 +155,7 @@
 <!-- BEGIN INLINE SCRIPTS -->
 <script th:inline="javascript">
     function retrieveTree() {
-        $('#tree').load(/*[[@{/faculty/department/list}]]*/, function () {
+        $('#tree').load(/*[[@{/admin/department/list}]]*/, function () {
             generateTree();
         });
     };
@@ -190,7 +190,7 @@
         var form = $('#amodal-form');
         var department = {
             name: $('#amodal-name').val(),
-            faculty: {id: $('#faculty-id').val()}
+            faculty: {id: $('#admin-id').val()}
         };
         $.ajax({
             url: form.attr('action'),

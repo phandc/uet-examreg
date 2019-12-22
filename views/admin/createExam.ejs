@@ -9,16 +9,16 @@
     <title th:text="'Hội đồng bảo vệ KLTN - ' + #{app.name}"></title>
 
     <!-- BEGIN MAIN LEVEL STYLES -->
-    <link href='../public/css/bootstrap.min.css ' rel='stylesheet' media='screen'>
-    <link href='../public/vendor/font-awesome/css/font-awesome.css ' rel='stylesheet' media='screen'>
-    <link href='../public/css/animate.css ' rel='stylesheet' media='screen'>
-    <link href='../public/css/style.css ' rel='stylesheet' media='screen'>
+    <link href='../../public/css/bootstrap.min.css ' rel='stylesheet' media='screen'>
+    <link href='../../public/vendor/font-awesome/css/font-awesome.css ' rel='stylesheet' media='screen'>
+    <link href='../../public/css/animate.css ' rel='stylesheet' media='screen'>
+    <link href='../../public/css/style.css ' rel='stylesheet' media='screen'>
     <!-- END MAIN LEVEL STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLESHEETS -->
-    <link href="../public/css/plugins/iCheck/custom.css  " rel="stylesheet" media="screen">
-    <link href="../public/css/plugins/dataTables/datatables.min.css " rel="stylesheet">
-    <link href="../public/css/wad/faculty/council.css" rel="stylesheet" media="screen">
+    <link href="../../public/css/plugins/iCheck/custom.css  " rel="stylesheet" media="screen">
+    <link href="../../public/css/plugins/dataTables/datatables.min.css " rel="stylesheet">
+    <link href="../../public/css/wad/faculty/council.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
 </head>
 
@@ -30,10 +30,10 @@
     <div id='page-wrapper' class='gray-bg'>
 
         <!-- HEADER -->
-        <!-- <div th:replace='/faculty/tpl/header :: header'></div> -->
+        <!-- <div th:replace='/admin/tpl/header :: header'></div> -->
         <!-- END HEADER -->
         <header>
-            <%- include("../views/faculty/tpl/header") %>
+            <%- include("../views/admin/tpl/header") %>
         </header>
 
         <!-- END PAGE TITLE -->
@@ -187,7 +187,7 @@
                 </div>
             </div>
             </div>
-        <!--<input type='hidden' id='rendered_view_path' th:value='@{/faculty/student}'/>-->
+        <!--<input type='hidden' id='rendered_view_path' th:value='@{/admin/student}'/>-->
         <input type='hidden' id='export_council_path' th:value='@{/faculty/export/council2}'/>
         <!-- END PAGE CONTENT -->
 
@@ -259,22 +259,22 @@
     </div>
 
     <!-- BEGIN MAIN LEVEL SCRIPTS -->
-    <script type="text/javascript"  src="../public/js/jquery-2.1.1.js  "></script>
-    <script type="text/javascript"  src="../public/js/bootstrap.min.js "></script>
-    <script type="text/javascript"  src="../public/js/plugins/metisMenu/jquery.metisMenu.js "></script>
-    <script type="text/javascript"  src="../public/js/plugins/slimscroll/jquery.slimscroll.min.js "></script>
+    <script type="text/javascript"  src="../../public/js/jquery-2.1.1.js  "></script>
+    <script type="text/javascript"  src="../../public/js/bootstrap.min.js "></script>
+    <script type="text/javascript"  src="../../public/js/plugins/metisMenu/jquery.metisMenu.js "></script>
+    <script type="text/javascript"  src="../../public/js/plugins/slimscroll/jquery.slimscroll.min.js "></script>
     <script th:src="@{/resources/js/plugins/typeahead/bootstrap3-typeahead.js "></script>
     <!-- END MAIN LEVEL SCRIPTS -->
 
     <!-- BEGIN PAGE LEVEL SCRIPTS -->
-    <script type="text/javascript"  src="../public/js/plugins/iCheck/icheck.min.js "></script>
-    <script type="text/javascript"  src="../public/js/plugins/dataTables/datatables.min.js "></script>
-    <script type="text/javascript"  src="../public/js/wad/faculty/council.js "></script>
+    <script type="text/javascript"  src="../../public/js/plugins/iCheck/icheck.min.js "></script>
+    <script type="text/javascript"  src="../../public/js/plugins/dataTables/datatables.min.js "></script>
+    <script type="text/javascript"  src="../../public/js/wad/faculty/council.js "></script>
     <!-- END PAGE LEVEL SCRIPTS -->
 
     <!-- BEGIN CUSTOM SCRIPTS -->
-    <script  src="../public/js/inspinia.js "></script>
-    <script  src="../public/js/plugins/pace/pace.min.js "></script>
+    <script  src="../../public/js/inspinia.js "></script>
+    <script  src="../../public/js/plugins/pace/pace.min.js "></script>
     <!-- END CUSTOM SCRIPTS -->
 
     <!-- BEGIN INLINE SCRIPTS -->

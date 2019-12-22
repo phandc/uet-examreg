@@ -3,12 +3,12 @@
  */
 $(document).ready(function() {
     var retrieveFacultyList = function () {
-        $('#faculty_list').load(/*[[@{/admin/faculty-ajax}]]*/);
+        $('#faculty_list').load(/*[[@{/admin/admin-ajax}]]*/);
     };
 
     var deleteFaculty = function(id) {
         $.ajax({
-            url: ""/*[+ [[@{/admin/faculty/}]] + id + '/delete'  +]*/,
+            url: ""/*[+ [[@{/admin/admin/}]] + id + '/delete'  +]*/,
             type: 'POST',
             beforeSend: function(xhr) {
                 var token = $("meta[name='_csrf']").attr("content");

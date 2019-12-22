@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="_csrf" th:content="${_csrf.token}"/>
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title th:text="'Danh sách các ngành - ' + #{app.name}"></title>
+    <title th:text="'Danh sách các lớp - ' + #{app.name}"></title>
 
     <!-- BEGIN MAIN LEVEL STYLES -->
     <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
@@ -35,7 +35,7 @@
         <!-- PAGE TITLE -->
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-lg-10">
-                <h2 id="dsdv">Danh sách các ngành</h2>
+                <h2 id="dsdv">Danh sách các lớp</h2>
             </div>
         </div>
         <!-- END PAGE TITLE -->
@@ -48,20 +48,20 @@
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
                                 <div class="ibox-tools">
-                                    <button type="button" class="btn btn-primary" id="add-btn">Thêm ngành</button>
+                                    <button type="button" class="btn btn-primary" id="add-btn">Thêm lớp</button>
                                 </div>
                             </div>
                             <div class="ibox-content">
                                 <div class="tree">
                                     <ul>
-                                        <li th:each="spec : ${specializationList}">
+                                        <li th:each="class : ${classList}">
                                             <div class="row">
-                                                <span th:text="${spec.name}"></span>
-                                                <input type="hidden" th:value="${spec.specId}"/>
-                                                <form th:action="@{/ws/specialization}" style="display: inline-block">
+                                                <span th:text="${class.name}"></span>
+                                                <input type="hidden" th:value="${class.classId}"/>
+                                                <form th:action="@{/ws/class}" style="display: inline-block">
                                                     <i class="fa fa-pencil-square-o font-primary update-btn" aria-hidden="true" title="Cập nhật"></i>
                                                 </form>
-                                                <form th:action="@{'/ws/specialization/' + ${spec.specId}}" style="display: inline-block">
+                                                <form th:action="@{'/ws/class/' + ${class.classId}}" style="display: inline-block">
                                                     <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
                                                 </form>
                                             </div>
@@ -82,15 +82,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="amodal-title">Thêm ngành</h4>
+                        <h4 class="modal-title" id="amodal-title">Thêm lớp</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="amodal-form" role="form" class="form-horizontal" th:action="@{/ws/specialization}">
+                        <form id="amodal-form" role="form" class="form-horizontal" th:action="@{/ws/class}">
                             <div class="form-group">
-                                <label class="col-md-3 control-label" for="amodal-name">Ngành: </label>
+                                <label class="col-md-3 control-label" for="amodal-name">Lớp: </label>
                                 <div class="col-md-6">
                                     <input type="hidden" id="amodal-id"/>
-                                    <input placeholder="Nhập tên ngành" id="amodal-name" class="form-control" type="text" required>
+                                    <input placeholder="Nhập tên lớp" id="amodal-name" class="form-control" type="text" required>
                                 </div>
                             </div>
                         </form>
@@ -108,15 +108,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="emodal-title">Cập nhật ngành</h4>
+                        <h4 class="modal-title" id="emodal-title">Cập nhật lớp</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="emodal-form" role="form" class="form-horizontal" th:action="@{/ws/specialization}">
+                        <form id="emodal-form" role="form" class="form-horizontal" th:action="@{/ws/class}">
                             <div class="form-group">
-                                <label class="col-md-3 control-label" for="amodal-name">Ngành: </label>
+                                <label class="col-md-3 control-label" for="amodal-name">Lớp: </label>
                                 <div class="col-md-6">
                                     <input type="hidden" id="emodal-id"/>
-                                    <input placeholder="Nhập tên ngành" id="emodal-name" class="form-control" type="text" required>
+                                    <input placeholder="Nhập tên lớp" id="emodal-name" class="form-control" type="text" required>
                                 </div>
                             </div>
                         </form>
@@ -128,7 +128,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- FOOTER -->
         <div th:replace="/faculty/tpl/footer :: footer"></div>
         <!-- END FOOTER -->
@@ -155,20 +155,20 @@
 <!-- BEGIN INLINE SCRIPTS -->
 <script th:inline="javascript">
     function retrieveTree() {
-        $('#tree').load(/*[[@{/faculty/specialization/list}]]*/, function () {
+        $('#tree').load(/*[[@{/admin/class/list}]]*/, function () {
             generateTree();
         });
     };
 
     $('#emodal-submit-btn').click(function() {
         var form = $('#emodal-form');
-        var specId = $('#emodal-id').val();
-        var spec = {
+        var classId = $('#emodal-id').val();
+        var clazz = {
             name: $('#emodal-name').val(),
         };
         $.ajax({
-            url: form.attr('action') + '/' + specId,
-            data: JSON.stringify(spec),
+            url: form.attr('action') + '/' + classId,
+            data: JSON.stringify(clazz),
             type: 'POST',
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Accept", "application/json");
@@ -188,13 +188,13 @@
 
     $('#amodal-submit-btn').click(function() {
         var form = $('#amodal-form');
-        var spec = {
+        var clazz = {
             name: $('#amodal-name').val(),
-            faculty: {id: $('#faculty-id').val()}
+            faculty: {id: $('#admin-id').val()}
         };
         $.ajax({
             url: form.attr('action'),
-            data: JSON.stringify(spec),
+            data: JSON.stringify(clazz),
             type: 'POST',
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Accept", "application/json");
