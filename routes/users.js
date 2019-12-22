@@ -54,18 +54,37 @@ user_router.post('/login', (request, response) => {
                 let token = jwt.sign(user.dataValues, process.env.SECRET_KEY, {
                     expiresIn : 1440
                 })
-                response.send({token : token});
+
+                if(user.dataValues.role === 'student'){
+                     return response.redirect('student/home');
+                }
+                else {
+                    return response.redirect('admin');
+                }
+
+              //  response.send({token : token});
+
+
             }
-        }
         else
         {
             response.status(400).json({error: 'User does not exist'})
         }
-    }).catch(err => {
+    }}).catch(err => {
         console.log(err);
         response.status(400).json({error: err});
     })
 });
+
+user_router.get('/student/home', (request, response) =>{
+      response.render("student/home");
+})
+
+user_router.get('/admin', (request, response) =>{
+    response.render("admin");
+})
+
+
 
 user_router.get('/logout', (request, response) =>{
 
@@ -73,12 +92,5 @@ user_router.get('/logout', (request, response) =>{
 
 
 
-
-/* GET users listing. */
-/*
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-*/
 
 module.exports = user_router;

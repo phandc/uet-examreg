@@ -2,14 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/user/login', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
-router.get("/home", function(request, response)  {
 
-  response.render("student/home");
-});
 router.get("/registry", function(request, response)  {
 
   response.render("student/registry");
