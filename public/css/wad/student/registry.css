@@ -1,0 +1,27 @@
+/* ==== BEGIN:DEFAULT ==== */
+/* ==== END:DEFAULT ==== */
+
+/* ==== BEGIN:BOOTSTRAP ==== */
+/* ==== END:BOOTSTRAP ==== */
+
+/* ==== BEGIN:JQUERY PLUGIN ==== */
+/* ==== END:JQUERY PLUGIN ==== */
+
+/* ==== BEGIN:CUSTOM ==== */
+#wrapper {
+    overflow-x: visible;
+}
+
+.std-code-input {
+    padding: 0;
+}
+
+.std-detail {
+    line-height: 2.4;
+}
+
+.more-std > button {
+    margin-top: 10px;
+}
+
+/* ==== END:CUSTOM ==== */

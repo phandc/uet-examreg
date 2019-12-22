@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" charset="UTF-8">
+<body>
+<div fragment="header" class="row border-bottom white-bg">
+    <nav class="navbar navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button">
+                <i class="fa fa-reorder"></i>
+            </button>
+            <a href="../home" class="navbar-brand">ExamReg</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar">
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../home">Lịch thi</a>
+                </li>
+                <li>
+                    <a href="../registry">Đăng ký ca thi </a>
+                </li>
+                <!-- <li>
+                    <a href="/student/supervisorlist">Danh sách giảng viên</a>
+                </li> -->
+                <li class="dropdown">
+                    <a href="../home" class="dropdown-toggle" data-toggle="dropdown">Xin chào, <strong text="${session.uetthesis_fullname}"></strong><span class="caret"></span></a>
+                    <ul class="dropdown-menu" >
+                        <li><a href="../reset-password">Đổi mật khẩu</a></li>
+                        <li><a href="../../">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</body>

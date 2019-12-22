@@ -1,0 +1,40 @@
+/* ==== BEGIN:DEFAULT ==== */
+i {
+    font-size: 20px !important;
+    cursor: pointer;
+}
+table {
+    text-align: center;
+}
+table th {
+    text-align: center;
+    vertical-align: middle !important;
+}
+/* ==== END:DEFAULT ==== */
+
+/* ==== BEGIN:BOOTSTRAP ==== */
+/* ==== END:BOOTSTRAP ==== */
+
+/* ==== BEGIN:JQUERY PLUGIN ==== */
+#DataTables_Table_0_filter input {
+    width: 400px;
+}
+/* ==== END:JQUERY PLUGIN ==== */
+
+/* ==== BEGIN:CUSTOM ==== */
+.crt-council-content {
+    display: none;
+}
+
+.add-thesis-title-btn {
+    margin: 10px 0;
+}
+
+.add-thesis-content {
+    display: none;
+}
+
+.add-reviewer-content {
+    display: none;
+}
+/* ==== END:CUSTOM ==== */

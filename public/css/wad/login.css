@@ -1,0 +1,22 @@
+body {
+    background-image: url("../../img/bg-login.png");
+}
+
+.header {
+    margin-bottom: 50px;
+    color: #1ab394;
+}
+
+.logo {
+    padding-top: 10px;
+    position: absolute;
+    left: 100px;
+}
+
+h1 {
+    font-weight: 600;
+}
+
+h2 {
+    font-weight: 500;
+}

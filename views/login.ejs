@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title text="'Đăng nhập - ' + #{/app.name}"></title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BEGIN MAIN LEVEL STYLESHEETS -->
+   
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css/" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+    <link href="/css/wad/login.css" rel="stylesheet" media="screen">
+    <!-- END MAIN LEVEL STYLESHEETS -->
+
+</head>
+<body class="gray-bg">
+<div class="row header border-bottom white-bg">
+    <div class="col-md-12 text-center">
+        <img class="logo" src="/img/logo.png"/>
+        <h1>TRƯỜNG ĐẠI HỌC CÔNG NGHỆ- ĐẠI HỌC QUỐC GIA HÀ NỘI </h1>
+        <h2>HỆ THỐNG QUẢN LÍ KÌ THI</h2>
+    </div>
+</div>
+<div class="loginColumns animated fadeInDown">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="notification" if="${#servletContext.getAttribute('registration_status')}">
+                <h4>Thông báo</h4>
+                <div class="alert alert-info">
+                    Hiện tại sinh viên đã có thể đăng ký ca thi !
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="ibox-content">
+                <form class="m-t" role="form" action="@{/authenticate}" method="post">
+                    <div if="${error}" class="alert alert-danger">
+                        <span text="${error}"></span>
+                    </div>
+                    <div if="${message}" class="alert alert-success">
+                        <span text="${message}"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Tên tài khoản" required="">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required="">
+                    </div>
+                    <button type="submit" class="btn btn-primary block full-width m-b">Đăng nhập</button>
+                  
+                    <p class="text-muted text-center" style="margin-top: 10px;">
+                        <small>Quên mật khẩu?</small>
+                    </p>
+                    <p class="text-muted text-center" style="margin-top: 10px;">
+                        <small>Chưa có tài khoản?</small>
+                    </p>
+                    <input type="button" class="btn btn-sm btn-white btn-block" onclick="alert('Vui lòng liên hệ tới Email: \n17021328@vnu.edu.vn \nHoặc bạn hãy tới phòng công tác sinh viên : \nPhòng 105 tòa nhà E3\nChân thành cảm ơn .')" value="Liên hệ để được hỗ trợ">
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-6 text-right pull-right">
+            <small>Ver: 2019 <strong>Gaio Team</strong></small>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script type="text/javascript" src="../../../resources/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../../../resources/js/bootstrap.min.js"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+.page-heading {
+	padding: 10px;
+}
+
+div.no-title > .ibox-content {
+    padding-top: 30px;
+}
+
+.wad-footer {
+	background-color: #293846;
+	color: #fff;
+}
+
+footer .container div {
+	padding: 0;
+}
+
+.footer-wrap  {
+	margin: 30px 0;
+}
+
+.footer-wrap h2 {
+	display: block;
+	font-weight: 500;
+	margin-top: 0;
+}
+
+.contact {
+	padding: 0;
+}
+
+.contact li {
+	display: block;
+}
+
+.footer {
+	padding: 0;
+}

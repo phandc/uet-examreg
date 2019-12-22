@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" charset="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Đăng ký khóa luận - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLESHEETS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+    <link href="/css/wad/student/home.css" rel="stylesheet">
+    <!-- END MAIN LEVEL STYLESHEETS -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link href="/css/wad/student/registry.css" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+
+</head>
+<body class="top-navigation">
+<div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+
+        <!-- BEGIN HEADER -->
+        <header>
+            <%- include("../student/tpl/header") %>
+            </header>
+        <!-- END HEADER -->
+
+        <div class="cleafix" style="margin-bottom: 40px"></div>
+
+        <!-- BEGIN CONTENT -->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Đăng ký khóa luận</h2>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div switch="${registrable}">
+                                    <div case="'on'">
+                                        <div switch="${hasThesis}">
+                                            <div case="true">
+                                                <div class="alert alert-danger">
+                                                    Bạn đã đăng ký khóa luận rồi, không thể đăng ký thêm.
+                                                </div>
+                                            </div>
+                                            <div case="false">
+                                                <div switch="${std.thesisRegistrable}">
+                                                    <div case="0">
+                                                        <div class="alert alert-danger">
+                                                            Bạn chưa đủ điều kiện đăng ký.
+                                                        </div>
+                                                    </div>
+                                                    <div case="1">
+                                                        <div class="row wrapper white-bg page-heading">
+                                                            <div class="col-lg-10">
+                                                                <h2>Tạo mới đề tài cho khóa luận tốt nghiệp</h2>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="ibox-content">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <form action="@{/ws/thesis}"
+                                                                                  id="thesisRegistry">
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label class="col-md-12 control-label"
+                                                                                               for="thesisName">
+                                                                                            Đăng ký làm khóa luận bằng
+                                                                                            Tiếng Anh:
+                                                                                        </label>
+                                                                                        <div class="col-md-2">
+                                                                                            <select class="form-control"
+                                                                                                    id="englishType">
+                                                                                                <option value="0">
+                                                                                                    Không
+                                                                                                </option>
+                                                                                                <option value="1">Có
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label class="col-md-12 control-label"
+                                                                                               for="thesisName">
+                                                                                            Tên đề tài:
+                                                                                        </label>
+                                                                                        <div class="col-md-12">
+                                                                                            <input class="form-control"
+                                                                                                   id="thesisName"
+                                                                                                   name="thesisName"
+                                                                                                   placeholder="Nhập tên đề tài"
+                                                                                                   type="text">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="hr-line-dashed"></div>
+
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12 student-input">
+                                                                                        <label class="col-md-12 control-label">
+                                                                                            Sinh viên thực hiện đề tài:
+                                                                                        </label>
+                                                                                        <div class="col-md-12 std-wrap">
+                                                                                            <input type="hidden"
+                                                                                                   id="thesisStdId"
+                                                                                                   value="${std.getStudentId()}">
+                                                                                            <div class="col-md-3 std-code-input">
+                                                                                                <input class="form-control"
+                                                                                                       id="thesisStdCode"
+                                                                                                       name="thesisStdCode"
+                                                                                                       value="${std.getStudentCode()}"
+                                                                                                       type="text"
+                                                                                                       disabled>
+                                                                                            </div>
+                                                                                            <div class="col-md-3 std-name-input">
+                                                                                                <input class="form-control"
+                                                                                                       id="thesisStdName"
+                                                                                                       name="thesisStdName"
+                                                                                                       value="${std.getName()}"
+                                                                                                       type="text"
+                                                                                                       disabled>
+                                                                                            </div>
+                                                                                            <div class="col-md-3 std-class-input">
+                                                                                                <input class="form-control"
+                                                                                                       id="thesisStdClass"
+                                                                                                       name="thesisStdClass"
+                                                                                                       value="${std.getClazz().getName()}"
+                                                                                                       type="text"
+                                                                                                       disabled>
+                                                                                            </div>
+                                                                                            <div class="col-md-3 std-spec-input">
+                                                                                                <input class="form-control"
+                                                                                                       id="thesisStdSpec"
+                                                                                                       name="thesisStdSpec"
+                                                                                                       value="${std.getSpecialization().getName()}"
+                                                                                                       type="text"
+                                                                                                       disabled>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <!--<div class="col-md-12 more-std">
+                                                                                            <button type="button" class="btn btn-primary">
+                                                                                                + Thêm sinh viên
+                                                                                            </button>
+                                                                                        </div>-->
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="hr-line-dashed"></div>
+
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label class="col-md-12 control-label"
+                                                                                               for="thesisSv">
+                                                                                            Giảng viên hướng dẫn
+                                                                                            (chính):
+                                                                                        </label>
+                                                                                        <div class="col-md-12">
+                                                                                            <input class="form-control"
+                                                                                                   id="thesisSv"
+                                                                                                   name="thesisSv"
+                                                                                                   placeholder="Nhập tên giảng viên"
+                                                                                                   type="text"
+                                                                                                   autocomplete="false">
+                                                                                            <input type="hidden"
+                                                                                                   id="thesisSvId">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="form-group col-md-6">
+                                                                                        <label class="col-md-12 control-label"
+                                                                                               for="thesisSv">
+                                                                                            Giảng viên đồng hướng dẫn
+                                                                                            (phụ):
+                                                                                        </label>
+                                                                                        <div class="col-md-12">
+                                                                                            <input class="form-control"
+                                                                                                   id="thesisCoSv"
+                                                                                                   name="thesisCoSv"
+                                                                                                   placeholder="Nhập tên giảng viên"
+                                                                                                   type="text"
+                                                                                                   autocomplete="false">
+                                                                                            <input type="hidden"
+                                                                                                   id="thesisCoSvId">
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="hr-line-dashed"></div>
+
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <label class="col-md-12 control-label"
+                                                                                               for="thesisDesc">
+                                                                                            Mô tả khóa luận:
+                                                                                        </label>
+                                                                                        <div class="col-md-12">
+                                                                                            <textarea class="form-control" id="thesisDesc"
+                                                                                                      name="thesisDesc"></textarea>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="form-group col-md-12">
+                                                                                        <div class="col-md-12">
+                                                                                            <button class="btn btn-primary"
+                                                                                                    type="submit">
+                                                                                                Đăng ký khóa luận tốt
+                                                                                                nghiệp
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div case="*">
+                                        <div class="alert alert-danger">
+                                            Chưa đến thời gian đăng ký.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" id="student_home_path" value="@{/student/home}"/>
+    </div>
+
+    <!-- END CONTENT-->
+</div>
+</div>
+<!-- BEGIN FOOTER -->
+<div replace="/student/tpl/footer :: footer"></div>
+<!-- END FOOTER -->
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/plugins/typeahead/bootstrap3-typeahead.js"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/js/wad/student/registry.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<!-- END INLINE SCRIPTS -->
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" charset="UTF-8">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Trang chủ - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLESHEETS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+    <link href="/css/wad/student/home.css" rel="stylesheet">
+    <!-- END MAIN LEVEL STYLESHEETS -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <!-- END PAGE LEVEL STYLESHEETS -->
+
+</head>
+<body class="top-navigation">
+<div id="wrapper">
+    <div id="page-wrapper" class="gray-bg">
+
+        <!-- BEGIN HEADER -->
+        <header>
+        <%- include("../student/tpl/header") %>
+        </header>
+        <!-- END HEADER -->
+
+        <div class="cleafix" style="margin-bottom: 40px"></div>
+
+        <!-- BEGIN CONTENT -->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>Danh sách môn đã học : </h2>
+            </div>
+        </div>
+
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div if="${thesis} != null" class="thesis-wrapper">
+                                    <div class="panel panel-primary" id="thesis-panel">
+                                        <div class="panel-heading">
+                                            Môn thi thứ 1 : 
+                                            <span class="label" id="label-status"></span>
+                                        </div>
+                                        <div class="panel-body" fragment="thesis">
+                                            <div class="col-md-10">
+                                                <div class="col-md-12">
+                                                    <label>Tên môn :</label>
+                                                    <span text="${thesis.getTitle()}" id="thesisTitle"></span>
+                                                </div>
+                                                <div class="col-md-12"> 
+                                                    <label> Mã môn học : </label>
+                                                    <span text="############" id="###########"></span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>Giảng viên :</label>
+                                                    <span text="${thesis.getDescription()}" id="thesisDesc"></span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <label>Điều kiện dự thi :</label>
+                                                    <span text="#############" id="##############"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2 thesis-btn-wrap"  if="">
+                                                <button class="pull-right btn btn-warning" id="btn-edit" style="display:block;">Chọn ca thi </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
+                            <button class="btn btn-primary"style="float: right; margin-right: 20px"> In lich Thi </button>
+                            <button class="btn btn-primary" style="float: right; margin-right: 20px"> Download lịch thi </button>
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END CONTENT-->
+        <input type="hidden" id="student_home_path" value="@{/student/home}"/>
+    </div>
+</div>
+
+<div id="cancelModal" class="modal fade" role="dialog">>
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Xác nhận hủy khóa luận</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Bạn có chắc muốn hủy khóa luận hiện tại.
+                    <br/>
+                    <strong>Yêu cầu hủy phải đợi nhà trường chấp nhận mới hoàn tất.</strong>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="requestCancel">Hủy</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- BEGIN FOOTER -->
+<%- include("../student/tpl/footer") %>
+<!-- END FOOTER -->
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+
+<script src="/js/jquery-2.1.1.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/plugins/typeahead/bootstrap3-typeahead.js"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="/js/wad/student/home.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<!-- END INLINE SCRIPTS -->
+</body>
+</html>

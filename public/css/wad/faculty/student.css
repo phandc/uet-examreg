@@ -1,0 +1,73 @@
+/* ==== DEFAULT ELEMENT ==== */
+i {
+    font-size: 20px !important;
+    cursor: pointer;
+}
+table {
+    text-align: center;
+}
+table th {
+    text-align: center;
+    vertical-align: middle !important;
+}
+
+/* ==== BOOTSTRAP'S CLASS ==== */
+.form-inline .form-control {
+    vertical-align: middle;
+}
+
+.notice {
+    margin-top: 3px;
+}
+
+.nav-tabs {
+    display: flex;
+}
+
+.nav-tabs > li {
+    margin: auto;
+}
+
+.nav-tabs > li.active > a {
+    background-color: #1ab394 !important;
+    border: 1px solid #1ab394 !important;
+    color: #fff !important;
+}
+.nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+    outline: 0;
+}
+
+.btn-label {
+    font-size: 11px;
+    padding: 2px 8px;
+}
+
+/* ==== JQUERY PLUGIN'S CLASS ==== */
+/* -- Dropzone -- */
+.dropzone {
+    background: white none repeat scroll 0 0;
+    border: 1px dashed #1ab394;
+    min-height: 195px;
+    padding: 20px;
+}
+.dropzone .dz-message {
+    font-size: 16px;
+}
+
+#dropzone-button1, #dropzone-button2 {
+    position: absolute;
+    bottom: 15px;
+    right: 30px;
+}
+
+/* -- DataTable -- */
+#DataTables_Table_0_filter input {
+    width: 400px;
+}
+
+
+
+/* ==== CUSTOM CLASS ==== */
+.crt-std-wrap {
+    display: flex;
+}
