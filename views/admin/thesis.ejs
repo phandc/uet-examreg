@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:charset="UTF-8">
+<html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title th:text="'Danh sách khóa luận - ' + #{app.name}"></title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Danh sách khóa luận - ' + #{app.name}"></title>
 
     <!-- BEGIN MAIN LEVEL STYLES -->
-    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/animate.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css}" rel="stylesheet" media="screen">
     <!-- END MAIN LEVEL STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLESHEETS -->
-    <link th:href="@{/resources/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
-    <link th:href="@{/resources/css/plugins/dataTables/datatables.min.css}" rel="stylesheet">
-    <link th:href="@{/resources/css/wad/faculty/supervisor.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css}" rel="stylesheet" media="screen">
+    <link href="/css/plugins/iCheck/custom.css " rel="stylesheet" media="screen">
+    <link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="/css/wad/faculty/supervisor.css" rel="stylesheet" media="screen">
+    <link href="/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
 
 </head>
@@ -27,13 +27,13 @@
 <div id="wrapper">
 
     <!-- NAVIGATION -->
-    <div th:replace="/faculty/tpl/header :: navigation"></div>
+    <div replace="/andmin/tpl/header :: navigation"></div>
     <!-- END NAVIGATION -->
 
     <div id="page-wrapper" class="gray-bg">
 
         <!-- HEADER -->
-        <div th:replace="/faculty/tpl/header :: header"></div>
+        <div replace="/admin/tpl/header :: header"></div>
         <!-- END HEADER -->
 
         <!-- PAGE TITLE -->
@@ -50,7 +50,7 @@
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <section id="thesis-list">
-                            <div th:fragment="thesisContent" class="ibox-content">
+                            <div fragment="thesisContent" class="ibox-content">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="thesis-table">
                                         <thead>
@@ -72,19 +72,19 @@
                                             <th></th>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="thesis: ${theses}">
-                                            <input class="abc" type="hidden" th:value="${thesis.thesisId}">
+                                        <tr each="thesis: ${theses}">
+                                            <input class="abc" type="hidden" value="${thesis.thesisId}">
                                             <td><input type="checkbox" class="i-checks" name="cbox"></td>
-                                            <td class="abc" th:text="${thesis.title}"></td>
+                                            <td class="abc" text="${thesis.title}"></td>
                                             <td class="abc">
-                                                <div th:text="${thesis.student.name}"></div>
-                                                <div><em th:text="'(' + ${thesis.student.studentCode} + ' - ' + ${thesis.student.clazz.name} +')'"></em></div>
+                                                <div text="${thesis.student.name}"></div>
+                                                <div><em text="'(' + ${thesis.student.studentCode} + ' - ' + ${thesis.student.clazz.name} +')'"></em></div>
                                             </td>
                                             <td class="abc">
-                                                <div th:text="${thesis.firstSupervisor.name}"></div>
-                                                <div th:if="${thesis.secondSupervisor}" th:text="${thesis.secondSupervisor.name}"></div>
+                                                <div text="${thesis.firstSupervisor.name}"></div>
+                                                <div if="${thesis.secondSupervisor}" text="${thesis.secondSupervisor.name}"></div>
                                             </td>
-                                            <td class="abc" th:text="${thesis.status.name}"></td>
+                                            <td class="abc" text="${thesis.status.name}"></td>
                                             <td>
                                                 <i class="fa fa-pencil font-primary" aria-hidden="true"></i>
                                                 <i class="fa fa-trash font-danger" aria-hidden="true"></i>
@@ -98,39 +98,39 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="accepted_thesis_export_path" th:value="@{/faculty/export/thesis/accepted}"/>
-            <input type="hidden" id="protected_thesis_export_path" th:value="@{/faculty/export/thesis/protected}"/>
-            <input type="hidden" id="update_thesis_path" th:value="@{/ws/thesis/update}"/>
-            <input type="hidden" id="render_path" th:value="@{/faculty/thesis}"/>
+            <input type="hidden" id="accepted_thesis_export_path" value="@{/faculty/export/thesis/accepted}"/>
+            <input type="hidden" id="protected_thesis_export_path" value="@{/faculty/export/thesis/protected}"/>
+            <input type="hidden" id="update_thesis_path" value="@{/ws/thesis/update}"/>
+            <input type="hidden" id="render_path" value="@{/faculty/thesis}"/>
         </div>
         <!-- END PAGE CONTENT -->
 
         <!-- FOOTER -->
-        <div th:replace="/faculty/tpl/footer :: footer"></div>
+        <div replace="/admin/tpl/footer :: footer"></div>
         <!-- END FOOTER -->
     </div>
 </div>
 
 <!-- BEGIN MAIN LEVEL SCRIPTS -->
-<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript" src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- END MAIN LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" th:src="@{/resources/js/plugins/bootstrap-markdown/bootstrap-markdown.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/bootstrap-markdown/markdown.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/iCheck/icheck.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/dropzone/dropzone.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/dataTables/datatables.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/wad/faculty/thesis.js}"></script>
+<script type="text/javascript" src="/js/plugins/bootstrap-markdown/bootstrap-markdown.js"></script>
+<script type="text/javascript" src="/js/plugins/bootstrap-markdown/markdown.js"></script>
+<script type="text/javascript" src="/js/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="/js/plugins/dropzone/dropzone.js"></script>
+<script type="text/javascript" src="/js/plugins/dataTables/datatables.min.js"></script>
+<script type="text/javascript" src="/js/wad/faculty/thesis.js"></script>
 
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN CUSTOM SCRIPTS -->
-<script th:src="@{/resources/js/inspinia.js}"></script>
-<script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- BEGIN INLINE SCRIPTS -->

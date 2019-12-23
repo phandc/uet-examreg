@@ -68,6 +68,10 @@ admin_router.post('/studentRegister', upload.single("File"), (request, response)
                 })
         }
     });
+    admin_router.get('/home', (request, response) =>{
+        console.log("message : " + message);
+        response.render("admin/home");
+    })
     //delete uploaded file
     fs.unlinkSync(filepath);
     response.send('file upload success, added ' + count + ' account(s)');

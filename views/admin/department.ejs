@@ -1,21 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" th:charset="UTF-8">
+<html >
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title th:text="'Danh sách các đơn vị - ' + #{app.name}"></title>
-
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Danh sách các đơn vị - ' + #{app.name}"></title>
+f
     <!-- BEGIN MAIN LEVEL STYLES -->
-    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/animate.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
     <!-- END MAIN LEVEL STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLESHEETS -->
-    <link th:href="@{/resources/css/wad/admin/treeview.css}" rel="stylesheet" media="screen">
+    <link href="/css/wad/admin/treeview.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
 
 </head>
@@ -23,13 +23,13 @@
 <div id="wrapper">
 
     <!-- NAVIGATION -->
-    <div th:replace="/faculty/tpl/header :: navigation"></div>
+    <div replace="/faculty/tpl/header :: navigation"></div>
     <!-- END NAVIGATION -->
 
     <div id="page-wrapper" class="gray-bg">
 
         <!-- HEADER -->
-        <div th:replace="/faculty/tpl/header :: header"></div>
+        <div replace="/faculty/tpl/header :: header"></div>
         <!-- END HEADER -->
 
         <!-- PAGE TITLE -->
@@ -42,7 +42,7 @@
 
         <!-- PAGE CONTENT -->
         <section id="tree">
-            <div th:fragment="treeFragment" class="wrapper wrapper-content animated fadeInRight">
+            <div fragment="treeFragment" class="wrapper wrapper-content animated fadeInRight">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
@@ -54,14 +54,14 @@
                             <div class="ibox-content">
                                 <div class="tree">
                                     <ul>
-                                        <li th:each="department : ${departmentList}">
+                                        <li each="department : ${departmentList}">
                                             <div class="row">
-                                                <span th:text="${department.name}"></span>
-                                                <input type="hidden" th:value="${department.departmentId}"/>
-                                                <form th:action="@{/ws/department}" style="display: inline-block">
+                                                <span text="${department.name}"></span>
+                                                <input type="hidden" value="${department.departmentId}"/>
+                                                <form action="@{/ws/department}" style="display: inline-block">
                                                     <i class="fa fa-pencil-square-o font-primary update-btn" aria-hidden="true" title="Cập nhật"></i>
                                                 </form>
-                                                <form th:action="@{'/ws/department/' + ${department.departmentId}}" style="display: inline-block">
+                                                <form action="@{'/ws/department/' + ${department.departmentId}}" style="display: inline-block">
                                                     <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
                                                 </form>
                                             </div>
@@ -75,7 +75,7 @@
             </div>
         </section>
         <!-- END PAGE CONTENT -->
-        <input type="hidden" id="faculty-id" th:value="${session.uetthesis_faculty_id}"/>
+        <input type="hidden" id="faculty-id" value="${session.uetthesis_faculty_id}"/>
 
         <div class="modal inmodal fade" id="amodal" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog modal-md">
@@ -85,7 +85,7 @@
                         <h4 class="modal-title" id="amodal-title">Thêm đơn vị</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="amodal-form" role="form" class="form-horizontal" th:action="@{/ws/department}">
+                        <form id="amodal-form" role="form" class="form-horizontal" action="@{/ws/department}">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="amodal-name">Đơn vị: </label>
                                 <div class="col-md-6">
@@ -111,7 +111,7 @@
                         <h4 class="modal-title" id="emodal-title">Cập nhật đơn vị</h4>
                     </div>
                     <div class="modal-body">
-                        <form id="emodal-form" role="form" class="form-horizontal" th:action="@{/ws/department}">
+                        <form id="emodal-form" role="form" class="form-horizontal" action="@{/ws/department}">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="amodal-name">Đơn vị: </label>
                                 <div class="col-md-6">
@@ -130,30 +130,30 @@
         </div>
 
         <!-- FOOTER -->
-        <div th:replace="/faculty/tpl/footer :: footer"></div>
+        <div replace="/faculty/tpl/footer :: footer"></div>
         <!-- END FOOTER -->
 
     </div>
 </div>
 
 <!-- BEGIN MAIN LEVEL SCRIPTS -->
-<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript" src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- END MAIN LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" th:src="@{/resources/js/wad/treeview.js}"></script>
+<script type="text/javascript" src="/js/wad/treeview.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN CUSTOM SCRIPTS -->
-<script th:src="@{/resources/js/inspinia.js}"></script>
-<script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- BEGIN INLINE SCRIPTS -->
-<script th:inline="javascript">
+<script inline="javascript">
     function retrieveTree() {
         $('#tree').load(/*[[@{/admin/department/list}]]*/, function () {
             generateTree();

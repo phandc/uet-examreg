@@ -48,7 +48,6 @@ user_router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Login' });
 });
 
-
 user_router.post('/login', (request, response) => {
     User.findOne({
         where: {
@@ -89,13 +88,6 @@ user_router.get('/student/home', (request, response) =>{
       console.log("message : " + message);
       response.render("student/home");
 })
-
-user_router.get('/admin/home', (request, response) =>{
-    console.log("message : " + message);
-    response.render("admin/home");
-})
-
-
 
 user_router.get('/logout', (request, response) =>{
 

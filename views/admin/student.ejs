@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:charset="UTF-8">
+<html xmlns:th="http://www.thymeleaf.org" charset="UTF-8">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title th:text="'Danh sách sinh viên - ' + #{app.name}"></title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Danh sách sinh viên - ' + #{app.name}"></title>
 
     <!-- BEGIN MAIN LEVEL STYLES -->
-    <link href="../../../resources/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link  href="../../../resources/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
-    <link  href="../../../resources/css/animate.css" rel="stylesheet" media="screen">
-    <link  href="../../../resources/css/style.css" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link  href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link  href="/css/animate.css" rel="stylesheet" media="screen">
+    <link  href="/css/style.css" rel="stylesheet" media="screen">
     <!-- END MAIN LEVEL STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLESHEETS -->
-    <link href="../../../resources/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
-    <link href="../../../resources/css/plugins/datepicker/datepicker3.css " rel="stylesheet" media="screen">
-    <link  href="../../../resources/css/plugins/dropzone/dropzone.css" rel="stylesheet">
-    <link  href="../../../resources/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
-    <link  href="../../../resources/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet" media="screen">
-    <link  href="../../../resources/css/wad/faculty/student.css" rel="stylesheet" media="screen">
+    <link href="/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
+    <link href="/css/plugins/datepicker/datepicker3.css " rel="stylesheet" media="screen">
+    <link  href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link  href="/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link  href="/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet" media="screen">
+    <link  href="/css/wad/faculty/student.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
 
 </head>
@@ -28,13 +28,16 @@
 <div id="wrapper">
 
     <!-- NAVIGATION -->
-    <div th:replace="/faculty/tpl/header :: navigation"></div>
+        <%- include("../admin/tpl/navigation") %>
     <!-- END NAVIGATION -->
 
     <div id="page-wrapper" class="gray-bg">
 
         <!-- HEADER -->
-        <div th:replace="/faculty/tpl/header :: header"></div>
+        <header>
+            <%- include("../admin/tpl/header") %>
+        </header>
+
         <!-- END HEADER -->
 
         <!-- PAGE TITLE -->
@@ -65,7 +68,7 @@
                             <div class="row crt-std-wrap">
                                 <div class="form-horizontal col-md-6 b-r">
                                     <h3 class="m-t-none m-b">Điền thông tin cho sinh viên</h3>
-                                    <form id="createForm" th:action="@{/ws/student}">
+                                    <form id="createForm" action="@{/ws/student}">
                                         <div class="row">
                                             <div class="form-group col-md-12">
                                                 <label class="col-md-3 control-label" for="stdCode">Mã SV:</label>
@@ -100,10 +103,10 @@
                                             <div class="form-group col-md-12">
                                                 <label class="col-md-3 control-label" for="stdClass">Lớp:</label>
                                                 <div class="col-md-9">
-                                                    <select class="form-control" id="stdClass" th:fragment="classList" name="stdSpec">
-                                                        <option th:each="class : ${classList}"
-                                                                th:value="${class.classId}"
-                                                                th:text="${class.name}"></option>
+                                                    <select class="form-control" id="stdClass" fragment="classList" name="stdSpec">
+                                                        <option each="class : ${classList}"
+                                                                value="${class.classId}"
+                                                                text="${class.name}"></option>
                                                     </select>
                                                     <div class="notice">
                                                         <i class="fa fa-info-circle font-info"></i>
@@ -122,7 +125,7 @@
                                             <div class="form-group col-md-12">
                                                 <label class="col-md-3 control-label" for="stdFaculty">Khoa:</label>
                                                 <div class="col-md-9">
-                                                    <input class="form-control" id="stdFaculty" name="stdFaculty" readonly type="text" th:value="${#session.getAttribute('uetthesis_faculty_name')}">
+                                                    <input class="form-control" id="stdFaculty" name="stdFaculty" readonly type="text" value="${#session.getAttribute('uetthesis_faculty_name')}">
                                                 </div>
                                             </div>
                                         </div>
@@ -131,10 +134,10 @@
                                             <div class="form-group col-md-12">
                                                 <label class="col-md-3 control-label" for="stdSpec">Ngành:</label>
                                                 <div class="col-md-9">
-                                                    <select class="form-control" id="stdSpec" th:fragment="specList" name="stdSpec">
-                                                        <option th:each="spec : ${specList}"
-                                                                th:value="${spec.getSpecId()}"
-                                                                th:text="${spec.getName()}"></option>
+                                                    <select class="form-control" id="stdSpec" fragment="specList" name="stdSpec">
+                                                        <option each="spec : ${specList}"
+                                                                value="${spec.getSpecId()}"
+                                                                text="${spec.getName()}"></option>
                                                     </select>
                                                     <div class="notice">
                                                         <i class="fa fa-info-circle font-info"></i>
@@ -184,7 +187,7 @@
                                         </ul>
                                         <div class="tab-content">
                                             <div id="tab-1" class="tab-pane active">
-                                                <form method="post" id="dropzoneForm1" class="dropzone" th:action="'./import/student?' + ${_csrf.parameterName}+ '=' + ${_csrf.token}" enctype="multipart/form-data">
+                                                <form method="post" id="dropzoneForm1" class="dropzone" action="'./import/student?' + ${_csrf.parameterName}+ '=' + ${_csrf.token}" enctype="multipart/form-data">
                                                     <button class="btn btn-primary" id="dropzone-button1" type="submit">
                                                         <i class="fa fa-upload"></i>
                                                         <span class="bold">Tải lên</span>
@@ -192,7 +195,7 @@
                                                 </form>
                                             </div>
                                             <div id="tab-2" class="tab-pane">
-                                                <form method="post" id="dropzoneForm2" class="dropzone" th:action="'./import/student/updatestatus?' + ${_csrf.parameterName}+ '=' + ${_csrf.token}" enctype="multipart/form-data">
+                                                <form method="post" id="dropzoneForm2" class="dropzone" action="'./import/student/updatestatus?' + ${_csrf.parameterName}+ '=' + ${_csrf.token}" enctype="multipart/form-data">
                                                     <button class="btn btn-primary" id="dropzone-button2" type="submit">
                                                         <i class="fa fa-upload"></i>
                                                         <span class="bold">Tải lên</span>
@@ -206,7 +209,7 @@
                         </div>
 
                         <section id="student-list">
-                            <div th:fragment="studentContent" class="ibox-content">
+                            <div fragment="studentContent" class="ibox-content">
                                 <div class="table-responsive">
                                     <table id="student_table" class="table table-striped table-bordered table-hover">
                                         <thead>
@@ -234,29 +237,29 @@
                                             <th></th>
                                         </tfoot>
                                         <tbody>
-                                        <tr th:each="student: ${studentList}">
-                                            <input class="stdId" type="hidden" th:value="${student.studentId}">
+                                        <tr each="student: ${studentList}">
+                                            <input class="stdId" type="hidden" value="${student.studentId}">
                                             <td><input type="checkbox" class="i-checks" name="cbox"></td>
-                                            <td class="stdCode" th:text="${student.getStudentCode()}"></td>
-                                            <td class="stdName" th:text="${student.getName()}"></td>
-                                            <td class="stdSpec" th:text="${student.getSpecialization().getName()}"></td>
+                                            <td class="stdCode" text="${student.getStudentCode()}"></td>
+                                            <td class="stdName" text="${student.getName()}"></td>
+                                            <td class="stdSpec" text="${student.getSpecialization().getName()}"></td>
                                             <td class="stdClass">
-                                                <span th:text="${student.getClazz().getName()}"></span>
-                                                <input type="hidden" th:value="${student.getClazz().getClassId()}">
+                                                <span text="${student.getClazz().getName()}"></span>
+                                                <input type="hidden" value="${student.getClazz().getClassId()}">
                                             </td>
-                                            <td class="stdDob" th:text="${#dates.format(student.getDob(), 'yyyy-MM-dd')}"></td>
+                                            <td class="stdDob" text="${#dates.format(student.getDob(), 'yyyy-MM-dd')}"></td>
                                             <td>
-                                                <input type="hidden" class="stdThesisStatus" th:value="${student.thesisRegistrable}"/>
-                                                <span th:switch="${student.thesisRegistrable}">
-                                                    <p th:case="0" class="bg-danger">Không</p>
-                                                    <p th:case="1" class="bg-primary">Có</p>
+                                                <input type="hidden" class="stdThesisStatus" value="${student.thesisRegistrable}"/>
+                                                <span switch="${student.thesisRegistrable}">
+                                                    <p case="0" class="bg-danger">Không</p>
+                                                    <p case="1" class="bg-primary">Có</p>
                                                 </span>
                                             </td>
                                             <td>
-                                                <span th:switch="${student.theses.size()}">
-                                                    <p th:case="0" class="bg-danger">Chưa có khóa luận</p>
-                                                    <span th:case="1" th:each="thesis : ${student.theses}">
-                                                        <p class="bg-primary" th:text="${thesis.status.name}"></p>
+                                                <span switch="${student.theses.size()}">
+                                                    <p case="0" class="bg-danger">Chưa có khóa luận</p>
+                                                    <span case="1" each="thesis : ${student.theses}">
+                                                        <p class="bg-primary" text="${thesis.status.name}"></p>
                                                     </span>
                                                 </span>
                                             </td>
@@ -274,11 +277,11 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="rendered_view_path" th:value="@{/faculty/student}"/>
+        <input type="hidden" id="rendered_view_path" value="@{/faculty/student}"/>
         <!-- END PAGE CONTENT -->
 
         <!-- FOOTER -->
-        <div th:replace="/admin/tpl/footer :: footer"></div>
+        <div replace="/admin/tpl/footer :: footer"></div>
         <!-- END FOOTER -->
 
     </div>
@@ -289,7 +292,7 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <form id="editForm" th:action="@{/ws/student}">
+            <form id="editForm" action="@{/ws/student}">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Thay đổi thông tin sinh viên</h4>
@@ -336,7 +339,7 @@
                             <div class="form-group col-md-12">
                                 <label class="col-md-2 control-label" for="stdSpec">Khoa:</label>
                                 <div class="col-md-9">
-                                    <input class="form-control" id="stdFacultyEdit" name="stdFacultyEdit" readonly type="text" th:value="${#session.getAttribute('uetthesis_faculty_name')}">
+                                    <input class="form-control" id="stdFacultyEdit" name="stdFacultyEdit" readonly type="text" value="${#session.getAttribute('uetthesis_faculty_name')}">
                                 </div>
                             </div>
                         </div>
@@ -346,9 +349,9 @@
                                 <label class="col-md-2 control-label" for="stdFaculty">Ngành:</label>
                                 <div class="col-md-9">
                                     <select class="form-control" id="stdSpecEdit" name="stdSpecEdit">
-                                        <option th:each="spec : ${specList}"
-                                                th:value="${spec.getSpecId()}"
-                                                th:text="${spec.getName()}"></option>
+                                        <option each="spec : ${specList}"
+                                                value="${spec.getSpecId()}"
+                                                text="${spec.getName()}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -436,7 +439,7 @@
                         <div class="form-group col-md-12">
                             <span class="col-md-2">Khoa:</span>
                             <div class="col-md-9">
-                                <label id="stdFacultyDel" th:text="${#session.getAttribute('uetthesis_faculty_name')}"></label>
+                                <label id="stdFacultyDel" text="${#session.getAttribute('uetthesis_faculty_name')}"></label>
                             </div>
                         </div>
                     </div>
@@ -480,8 +483,8 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="specNameCrt">Tên khoa: </label>
                         <div class="col-md-8">
-                            <input type="hidden" id="specFalcutyIdCrt" th:value="${#session.getAttribute('uetthesis_faculty_id')}">
-                            <input class="form-control" id="specfacultyNameCrt" th:value="${#session.getAttribute('uetthesis_faculty_name')}" type="text" readonly>
+                            <input type="hidden" id="specFalcutyIdCrt" value="${#session.getAttribute('uetthesis_faculty_id')}">
+                            <input class="form-control" id="specfacultyNameCrt" value="${#session.getAttribute('uetthesis_faculty_name')}" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -521,8 +524,8 @@
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="specNameCrt">Tên khoa: </label>
                         <div class="col-md-8">
-                            <input type="hidden" id="classFalcutyIdCrt" th:value="${#session.getAttribute('uetthesis_faculty_id')}">
-                            <input class="form-control" id="classfacultyNameCrt" th:value="${#session.getAttribute('uetthesis_faculty_name')}" type="text" readonly>
+                            <input type="hidden" id="classFalcutyIdCrt" value="${#session.getAttribute('uetthesis_faculty_id')}">
+                            <input class="form-control" id="classfacultyNameCrt" value="${#session.getAttribute('uetthesis_faculty_name')}" type="text" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -574,26 +577,26 @@
 </div>
 
 <!-- BEGIN MAIN LEVEL SCRIPTS -->
-<script type="text/javascript" src="../../../resources/js/jquery-2.1.1.js"></script>
-<script type="text/javascript" src="../../../resources/js/bootstrap.min.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/metisMenu/jquery.metisMenu.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript"  src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript"  src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- END MAIN LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript"  src="../../../resources/js/plugins/validate/jquery.validate.min.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/bootstrap-markdown/bootstrap-markdown.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/datepicker/bootstrap-datepicker.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/bootstrap-markdown/markdown.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/iCheck/icheck.min.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/dropzone/dropzone.js"></script>
-<script type="text/javascript"  src="../../../resources/js/plugins/dataTables/datatables.min.js"></script>
-<script type="text/javascript"  src="../../../resources/js/wad/faculty/student.js"></script>
+<script type="text/javascript"  src="/js/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript"  src="/js/plugins/bootstrap-markdown/bootstrap-markdown.js"></script>
+<script type="text/javascript"  src="/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript"  src="/js/plugins/bootstrap-markdown/markdown.js"></script>
+<script type="text/javascript"  src="/js/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript"  src="/js/plugins/dropzone/dropzone.js"></script>
+<script type="text/javascript"  src="/js/plugins/dataTables/datatables.min.js"></script>
+<script type="text/javascript"  src="/js/wad/faculty/student.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN CUSTOM SCRIPTS -->
-<script  src="../../../resources/js/inspinia.js"></script>
-<script  src="../../../resources/js/plugins/pace/pace.min.js"></script>
+<script  src="/js/inspinia.js"></script>
+<script  src="/js/plugins/pace/pace.min.js"></script>
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- BEGIN INLINE SCRIPTS -->
