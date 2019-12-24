@@ -13,7 +13,7 @@ let message = "";
 const user_router = express.Router();
 user_router.use(cors());
 
-user_router.post('/register', (request, response) => {
+/*user_router.post('/register', (request, response) => {
 
     let userData = {
       userID: request.body.userID,
@@ -44,9 +44,7 @@ user_router.post('/register', (request, response) => {
     })
 })
 
-user_router.get('/login', function(req, res, next) {
-    res.render('login', { title: 'Login' });
-});
+
 
 user_router.post('/login', (request, response) => {
     User.findOne({
@@ -89,9 +87,11 @@ user_router.get('/student/home', (request, response) =>{
       response.render("student/home");
 })
 
+
+
 user_router.get('/logout', (request, response) =>{
 
-})
+})*/
 
 
 

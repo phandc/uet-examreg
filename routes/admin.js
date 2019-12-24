@@ -8,6 +8,7 @@ const fs = require('fs');
 const User = require('../model/user');
 
 const admin_router = express.Router();
+
 admin_router.use(cors());
 const storage = multer.diskStorage({
     destination: (request, response, cb) => {
@@ -22,6 +23,8 @@ const upload = multer({storage: storage});
 admin_router.post('/studentRegister', upload.single("File"), (request, response) => {
     console.log('req.file:' , request.file);
     let filepath = __dirname + '/upload/' + request.file.filename;
+
+    console.log(filepath)
     let count = 0;
 
     //read excel file
@@ -31,13 +34,14 @@ admin_router.post('/studentRegister', upload.single("File"), (request, response)
 
         let user_name = rows.map(rows => rows[3]);
         let password = rows.map(rows => rows[4]);
+        console.log(password);
 
         for(let i = 0; i < user_name.length; i++){
             let userData = {
                 userID: user_name[i],
                 username: user_name[i],
                 password: password[i],
-                email: "",
+                email: user_name[i] + "@uet.vnu.edu",
                 role: "student"
             }
             //find data query
@@ -68,13 +72,18 @@ admin_router.post('/studentRegister', upload.single("File"), (request, response)
                 })
         }
     });
-    admin_router.get('/home', (request, response) =>{
-        console.log("message : " + message);
-        response.render("admin/home");
-    })
+
     //delete uploaded file
     fs.unlinkSync(filepath);
     response.send('file upload success, added ' + count + ' account(s)');
 });
+
+
+
+admin_router.get('/student', (request, response) =>{
+    response.render("admin/student");
+})
+
+
 
 module.exports = admin_router;
