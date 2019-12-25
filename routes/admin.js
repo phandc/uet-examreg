@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const readExcel = require('read-excel-file/node');
 const multer = require('multer');
 const fs = require('fs');
+const taokithi = require('../model/abc');
 
 const User = require('../model/user');
 
@@ -77,10 +78,17 @@ admin_router.post('/studentRegister', upload.single("File"), (request, response)
     fs.unlinkSync(filepath);
     response.send('file upload success, added ' + count + ' account(s)');
 });
-admin_router.get('/home', function(request, response) {
-    response.render("admin/home");
+
+admin_router.get('/createExam', (request, response) =>{
+    taokithi.findAll()
+        .then(function(kithi){
+            response.render('admin/createExam',{data: kithi})
+            console.log(kithi);
+        })
+        .catch(error=>console.log(`error occurred`,error));
 });
-admin_router.get('/student', function(request, response) {
+
+admin_router.get('/student', (request, response) =>{
     response.render("admin/student");
 });
 admin_router.get('/class', function(request, response) {
@@ -89,8 +97,6 @@ admin_router.get('/class', function(request, response) {
 admin_router.get('/specialization', function(request, response) {
     response.render("admin/specialization");
 });
-admin_router.get('/createExam', function(request, response) {
-    response.render("admin/createExam");
-});
+
 
 module.exports = admin_router;

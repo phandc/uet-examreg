@@ -89,5 +89,10 @@ router.get('/student/home', (request, response) =>{
   response.render("student/home");
 });
 
+router.get('/admin/home', (request, response) => {
+  console.log("message : " + message);
+  response.render("admin/home");
+});
+
 
 module.exports = router;
