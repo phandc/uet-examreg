@@ -23,13 +23,13 @@
 <div id="wrapper">
 
     <!-- NAVIGATION -->
-    <div replace="/faculty/tpl/header :: navigation"></div>
+    <%- include("../admin/tpl/navigation") %>
     <!-- END NAVIGATION -->
 
     <div id="page-wrapper" class="gray-bg">
 
         <!-- HEADER -->
-        <div replace="/faculty/tpl/header :: header"></div>
+        <%- include("../admin/tpl/header") %>
         <!-- END HEADER -->
 
         <!-- PAGE TITLE -->
@@ -130,32 +130,32 @@
         </div>
 
         <!-- FOOTER -->
-        <div replace="/faculty/tpl/footer :: footer"></div>
+        <%- include("../admin/tpl/footer") %>
         <!-- END FOOTER -->
 
     </div>
 </div>
 
 <!-- BEGIN MAIN LEVEL SCRIPTS -->
-<script type="text/javascript" src="@{/resources/js/jquery-2.1.1.js}"></script>
-<script type="text/javascript" src="@{/resources/js/bootstrap.min.js}"></script>
-<script type="text/javascript" src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-<script type="text/javascript" src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript" src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- END MAIN LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" src="@{/resources/js/wad/treeview.js}"></script>
+<script type="text/javascript" src="/js/wad/treeview.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN CUSTOM SCRIPTS -->
-<script src="@{/resources/js/inspinia.js}"></script>
-<script src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- BEGIN INLINE SCRIPTS -->
 <script inline="javascript">
     function retrieveTree() {
-        $('#tree').load(/*[[@{/admin/class/list}]]*/ , function () {
+        $('#tree').load(/*[[@{/admin/class/list}]]*/  function () {
             generateTree();
         });
     };

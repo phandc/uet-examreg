@@ -70,30 +70,8 @@ user_router.post('/login', (request, response) => {
               //  response.send({token : token});
 
 
-            }
-        else
-        {
-            message = "Tài khoản hoặc mật khẩu không đúng"
-            return response.redirect('login');
-        }
-    }}).catch(err => {
-        console.log(err);
-        response.status(400).json({error: err});
-    })
-});
-
-user_router.get('/student/home', (request, response) =>{
-      console.log("message : " + message);
-      response.render("student/home");
-})
-
-
-
 user_router.get('/logout', (request, response) =>{
 
 })*/
-
-
-
 
 module.exports = user_router;

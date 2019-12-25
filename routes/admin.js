@@ -77,13 +77,20 @@ admin_router.post('/studentRegister', upload.single("File"), (request, response)
     fs.unlinkSync(filepath);
     response.send('file upload success, added ' + count + ' account(s)');
 });
-
-
-
-admin_router.get('/student', (request, response) =>{
+admin_router.get('/home', function(request, response) {
+    response.render("admin/home");
+});
+admin_router.get('/student', function(request, response) {
     response.render("admin/student");
-})
-
-
+});
+admin_router.get('/class', function(request, response) {
+    response.render("admin/class");
+});
+admin_router.get('/specialization', function(request, response) {
+    response.render("admin/specialization");
+});
+admin_router.get('/createExam', function(request, response) {
+    response.render("admin/createExam");
+});
 
 module.exports = admin_router;

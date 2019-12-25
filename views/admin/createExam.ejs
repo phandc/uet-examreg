@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html >
-
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
@@ -24,17 +23,15 @@
 
 <body>
     <!-- NAVIGATION -->
-    <div replace='/faculty/tpl/header :: navigation'></div>
+    <%- include("../admin/tpl/navigation") %>
     <!-- END NAVIGATION -->
     
     <div id='page-wrapper' class='gray-bg'>
 
         <!-- HEADER -->
-        <!-- <div replace='/admin/tpl/header :: header'></div> -->
+        <%- include("../views/admin/tpl/header") %>
         <!-- END HEADER -->
-        <header>
-            <%- include("../views/admin/tpl/header") %>
-        </header>
+
 
         <!-- END PAGE TITLE -->
 
