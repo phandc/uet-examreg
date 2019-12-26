@@ -4,11 +4,13 @@ const bcrypt = require('bcrypt');
 const readExcel = require('read-excel-file/node');
 const multer = require('multer');
 const fs = require('fs');
-const taokithi = require('../model/abc');
 
+const Class = require('../model/class');
+const Faculty = require('../model/faculty');
 const User = require('../model/user');
 
 const admin_router = express.Router();
+
 
 admin_router.use(cors());
 const storage = multer.diskStorage({
@@ -21,7 +23,9 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage});
 
-admin_router.post('/studentRegister', upload.single("File"), (request, response) => {
+
+
+admin_router.post('/student', upload.single("File"), (request, response) => {
     console.log('req.file:' , request.file);
     let filepath = __dirname + '/upload/' + request.file.filename;
 
@@ -79,24 +83,35 @@ admin_router.post('/studentRegister', upload.single("File"), (request, response)
     response.send('file upload success, added ' + count + ' account(s)');
 });
 
-admin_router.get('/createExam', (request, response) =>{
-    taokithi.findAll()
-        .then(function(kithi){
-            response.render('admin/createExam',{data: kithi})
-            console.log(kithi);
-        })
-        .catch(error=>console.log(`error occurred`,error));
-});
+
 
 admin_router.get('/student', (request, response) =>{
     response.render("admin/student");
 });
 admin_router.get('/class', function(request, response) {
-    response.render("admin/class");
+
+
+    Class.findAll()
+        .then(function(classList){
+            response.render('admin/class',{data: classList})
+            console.log("ABC" + classList);
+        })
+        .catch(error=>console.log(`error occurred`,error));
+
 });
 admin_router.get('/specialization', function(request, response) {
-    response.render("admin/specialization");
+
+   Faculty.findAll()
+        .then(function(facultyList){
+            response.render('admin/specialization',{data: facultyList})
+            console.log("ABC" + facultyList);
+        })
+        .catch(error=>console.log(`error occurred`,error));
+
 });
 
+admin_router.get('/createexam', (request, response) => {
+    response.render("admin/create");
+});
 
 module.exports = admin_router;

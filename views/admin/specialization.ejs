@@ -54,7 +54,22 @@
                             <div class="ibox-content">
                                 <div class="tree">
                                     <ul>
-                                        <li each="spec : ${specializationList}">
+                                        <% data.forEach(function(f) { %>
+                                            <li>
+                                                <div class="row">
+                                                    <span><%= f.name %></span>
+                                                    <input type="hidden" value="${spec.specId}"/>
+                                                    <form action="@{/ws/specialization}" style="display: inline-block">
+                                                        <i class="fa fa-pencil-square-o font-primary update-btn" aria-hidden="true" title="Cập nhật"></i>
+                                                    </form>
+                                                    <form action="@{'/ws/specialization/' + ${spec.specId}}" style="display: inline-block">
+                                                        <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        <% }); %>
+
+                                       <!-- <li each="spec : ${specializationList}">
                                             <div class="row">
                                                 <span text="${spec.name}"></span>
                                                 <input type="hidden" value="${spec.specId}"/>
@@ -65,7 +80,7 @@
                                                     <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
                                                 </form>
                                             </div>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </div>
                             </div>
