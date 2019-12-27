@@ -34,7 +34,7 @@
     <!-- PAGE TITLE -->
     <div class='row wrapper border-bottom white-bg page-heading'>
         <div class='col-lg-10'>
-            <h2 id='dsdv'>Quản lí ca thi</h2>
+            <h2 id='dsdv'>Kì thi :  </h2>
         </div>
     </div>
     <!-- END PAGE TITLE -->
@@ -83,7 +83,7 @@
                                                 Thêm danh sách ca thi
                                             </button>
 
-                                            <div class="add-thesis-content">
+                                            <div >
                                                 <div class="row">
                                                     <input type="hidden" id="'stdId'+${council.getCouncilId()}">
                                                     <div class="col-md-3 form-group">
@@ -113,23 +113,46 @@
                                                         <label class="col-md-12 control-label">Ca thi:
                                                         </label>
                                                         <div class="col-md-12">
-                                                            <input id="'stdName'+${council.getCouncilId()}"
-                                                                   class="form-control" type="text" disabled />
+                                                            <select class="form-control" id="stdThesisStatusEdit">
+                                                                <option value="0">Ca thi 1(7h - 9h)</option>
+                                                                <option value="1">Ca thi 2(9h30 - 11h30)</option>
+                                                                <option value="2">Ca thi 3(13h - 15h)</option>
+                                                                <option value="3">Ca thi 4(15h30 - 17h30)</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 form-group">
                                                         <label class="col-md-12 control-label">Phòng thi:
                                                         </label>
                                                         <div class="col-md-12">
-                                                            <input id="'stdName'+${council.getCouncilId()}"
-                                                                   class="form-control" type="text" disabled />
+                                                            <select class="form-control" id="roomID">
+                                                                <option value="0">P201-G2</option>
+                                                                <option value="1">P202-G2</option>
+                                                                <option value="2">PM207-G2</option>
+                                                                <option value="3">PM208-G2</option>
+                                                                <option value="4">P304-GĐ2</option>
+                                                                <option value="5">P309-GĐ2</option>
+                                                                <option value="6">P310-GĐ2</option>
+                                                                <option value="7">P312-GĐ2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Số lượng máy:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <input id="numOfComputers"
+                                                                   class="form-control" type="text" />
                                                         </div>
                                                     </div>
                                                     <div class="col-md-3 form-group">
                                                         <label class="col-md-12 control-label">Thời gian: </label>
                                                         <div class="col-md-12">
-                                                            <input id="'stdDob'+${council.getCouncilId()}"
-                                                                   class="form-control" type="text" disabled />
+                                                            <select class="form-control" id="time">
+                                                                <option value="0">60 phút</option>
+                                                                <option value="1">90 phút</option>
+                                                                <option value="2">120 phút</option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
@@ -206,16 +229,7 @@
         </div>
     </div>
 </div>
-<div>
-    <ul>
-        <% for(var i=0; i< data.length; i++) {%>
-            <li> <%= data[i].mamonthi %></li>
-            <li> <%= data[i].tenmonthi %></li>
-            <li> <%= data[i].diachi %></li>
-        <% } %>
-    </ul>
 
-</div>
 
 
 <div id="removeConfirmCouncilModal" class="modal fade" role="dialog">
@@ -267,21 +281,7 @@
 <script src="/js/inspinia.js"></script>
 <script src="/js/plugins/pace/pace.min.js"></script>
 <!-- END CUSTOM SCRIPTS -->
-<script>
-    var a = document.getElementById('studentCode');
-    a.addEventListener('keydown', function () {
-        var value = this.value;
-        <% for(var i=0; i< data.length; i++) {%>
-        if(value == data[i].mamonthi){
-            console.log("shsfdfsd");
-        }
-        /*<li> <%= data[i].mamonthi %></li>
-        <li> <%= data[i].tenmonthi %></li>
-        <li> <%= data[i].diachi %></li>*/
-        <% } %>
 
-    })
-</script>
 <!-- BEGIN INLINE SCRIPTS -->
 <!-- END INLINE SCRIPTS -->
 </body>

@@ -45,11 +45,6 @@
         <!-- END HEADER -->
 
         <!-- PAGE TITLE -->
-        <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2 id="dsdv">Danh sách kì thi</h2>
-            </div>
-        </div>
         <!-- END PAGE TITLE -->
 
         <!-- PAGE CONTENT -->
@@ -75,19 +70,19 @@
                                         <tr each="thesis: ${theses}">
                                             <input class="thId" type="hidden" value="${thesis.thesisId}">
                                             <td><input type="checkbox" class="i-checks" name="cbox"></td>
-                                            <td class="thTitle" text="${thesis.title}"></td>
-                                            <td class="thStudent">
-                                                <div text="${thesis.student.name}"></div>
-                                                <div><em text="'(' + ${thesis.student.studentCode} + ' - ' + ${thesis.student.clazz.name} +')'"></em></div>
-                                            </td>
-                                            <td class="thSupervisor">
-                                                <div text="${thesis.firstSupervisor.name}"></div>
-                                                <div if="${thesis.secondSupervisor}" text="${thesis.secondSupervisor.name}"></div>
+                                            <td><input type="text"></td>
+                                            <td><input type="text"></td>
+                                            <td>
+                                                <select class="form-control" id="roomID">
+                                                    <option value="0">Đại học Công Nghệ</option>
+                                                    <option value="1">Đại học Kinh Tế</option>
+                                                    <option value="2">Đại học Ngoại Ngữ</option>
+                                                </select>
                                             </td>
                                         </tr>
                                         </tbody>
                                     </table>
-                                    <a href="/admin/createexam"><button id="taokithi" class="btn btn-primary" >Tạo kì thi</button></a>
+                                    <a href="/admin/createsubject"><button id="taokithi" class="btn btn-primary" >Tạo</button></a>
                                 </div>
                             </div>
                         </section>
@@ -127,9 +122,9 @@
 <script type="text/javascript"  src="/js/wad/faculty/thesis.js"></script>
 
 
-<script type="text/javascript"  src="/js/plugins/validate/jquery.validate.min.js"></script>
+<script type="text/javascript"  src="/js/plugins/validate/jquery.validate.min.js"></script> // ---------------------
 
-<script type="text/javascript"  src="/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script type="text/javascript"  src="/js/plugins/datepicker/bootstrap-datepicker.js"></script> /------------------------
 
 
 

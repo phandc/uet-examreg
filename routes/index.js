@@ -61,6 +61,9 @@ router.post('/login', (request, response) => {
           expiresIn : 1440
         })
 
+
+        console.log(user.dataValues.username);
+
         if(user.dataValues.role === 'student'){
           message = "Đăng nhập thành công!"
           return response.redirect('student/home');
@@ -71,6 +74,7 @@ router.post('/login', (request, response) => {
         }
 
         //  response.send({token : token});
+
 
       }
       else
@@ -89,10 +93,9 @@ router.get('/student/home', (request, response) =>{
   response.render("student/home");
 });
 
-router.get('/admin/home', (request, response) => {
+router.get('/admin/home', (request, response) =>{
   console.log("message : " + message);
   response.render("admin/home");
-});
-
+})
 
 module.exports = router;

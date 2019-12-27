@@ -8,6 +8,7 @@ const fs = require('fs');
 const Class = require('../model/class');
 const Faculty = require('../model/faculty');
 const User = require('../model/user');
+const ExamSession = require('../model/session');
 
 const admin_router = express.Router();
 
@@ -111,7 +112,19 @@ admin_router.get('/specialization', function(request, response) {
 });
 
 admin_router.get('/createexam', (request, response) => {
-    response.render("admin/create");
+    // ExamSession.findAll()
+    //     .then(function(session){
+    //         response.render('admin/create',{data: session})
+    //         console.log("ABC" + session);
+    //     })
+    //     .catch(error=>console.log(`error occurred`,error));
+
+    response.render('admin/create_exam');
 });
+admin_router.get('/createsubject', (request, response) => {
+
+    response.render('admin/create_subject');
+});
+
 
 module.exports = admin_router;
