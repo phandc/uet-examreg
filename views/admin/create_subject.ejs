@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th='http://www.thymeleaf.org' th:charset='UTF-8'>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <meta name='_csrf' th:content='${_csrf.token}'/>
+    <meta name='_csrf_header' th:content='${_csrf.headerName}'/>
+    <title th:text="'Hội đồng bảo vệ KLTN - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLES -->
+    <link href='/css/bootstrap.min.css' rel='stylesheet' media='screen'>
+    <link href='/vendor/font-awesome/css/font-awesome.css' rel='stylesheet' media='screen'>
+    <link href='/css/animate.css' rel='stylesheet' media='screen'>
+    <link href='/css/style.css' rel='stylesheet' media='screen'>
+    <!-- END MAIN LEVEL STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link href="/css/plugins/iCheck/custom.css " rel="stylesheet" media="screen">
+    <link href="/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="/css/wad/faculty/council.css" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+</head>
+<body>
+<!-- NAVIGATION -->
+<%- include("../admin/tpl/navigation") %>
+<!-- END NAVIGATION -->
+
+<div id='page-wrapper' class='gray-bg'>
+
+    <!-- HEADER -->
+    <div th:replace='/faculty/tpl/header :: header'></div>
+    <!-- END HEADER -->
+
+    <!-- PAGE TITLE -->
+    <div class='row wrapper border-bottom white-bg page-heading'>
+        <div class='col-lg-10'>
+            <h2 id='dsdv'>Kì thi :  </h2>
+        </div>
+    </div>
+    <!-- END PAGE TITLE -->
+
+    <!-- PAGE CONTENT -->
+
+    <div id="councils-wrapper">
+        <div fragment="councilContent">
+            <div class="council-content" each='council: ${councilList}'>
+                <input type="hidden" class="council-id" value="${council.getCouncilId()}" />
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5 text="${council.getCouncilName()}"></h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link">
+                                        <i class="fa fa-chevron-up"></i>
+                                    </a>
+                                    <a class="delete-council">
+                                        <i class="fa fa-times"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="'#tab-'+${council.getCouncilId()}+'1'"
+                                               aria-expanded="false">
+                                                Chi tiết môn thi
+                                            </a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="'#tab-'+${council.getCouncilId()}+'2'"
+                                               aria-expanded="true">
+                                                Thông tin
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="'tab-'+${council.getCouncilId()}+'1'" class="tab-pane active">
+                                            <button class='btn btn-primary add-thesis-title-btn' type="button"
+                                                    style="margin-top: 5px;">
+                                                <i class='fa fa-plus'></i>
+                                                Thêm danh sách ca thi
+                                            </button>
+
+                                            <div >
+                                                <div class="row">
+                                                    <input type="hidden" id="'stdId'+${council.getCouncilId()}">
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Mã môn thi:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <input class="stdCode form-control" type="text" id="studentCode" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Tên môn thi:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <input id="'stdName'+${council.getCouncilId()}"
+                                                                   class="form-control" type="text" disabled />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Tín chỉ:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <input id="'stdName'+${council.getCouncilId()}"
+                                                                   class="form-control" type="text" disabled />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Ca thi:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" id="stdThesisStatusEdit">
+                                                                <option value="0">Ca thi 1(7h - 9h)</option>
+                                                                <option value="1">Ca thi 2(9h30 - 11h30)</option>
+                                                                <option value="2">Ca thi 3(13h - 15h)</option>
+                                                                <option value="3">Ca thi 4(15h30 - 17h30)</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Phòng thi:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" id="roomID">
+                                                                <option value="0">P201-G2</option>
+                                                                <option value="1">P202-G2</option>
+                                                                <option value="2">PM207-G2</option>
+                                                                <option value="3">PM208-G2</option>
+                                                                <option value="4">P304-GĐ2</option>
+                                                                <option value="5">P309-GĐ2</option>
+                                                                <option value="6">P310-GĐ2</option>
+                                                                <option value="7">P312-GĐ2</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Số lượng máy:
+                                                        </label>
+                                                        <div class="col-md-12">
+                                                            <input id="numOfComputers"
+                                                                   class="form-control" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 form-group">
+                                                        <label class="col-md-12 control-label">Thời gian: </label>
+                                                        <div class="col-md-12">
+                                                            <select class="form-control" id="time">
+                                                                <option value="0">60 phút</option>
+                                                                <option value="1">90 phút</option>
+                                                                <option value="2">120 phút</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class='row'>
+                                                        <div class='col-md-12'>
+                                                            <button class='btn pull-right btn-primary add-thesis-btn'
+                                                                    type='submit'>
+                                                                Tạo
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <section id="'thesis-list-' + ${council.getCouncilId()}">
+                                                    <div fragment="'thesisContent-' + ${council.getCouncilId()}"
+                                                         class="ibox-content">
+                                                        <div class="table-responsive">
+                                                            <table
+                                                                    class="thesis_table table table-striped table-bordered table-hover">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th>Mã môn thi</th>
+                                                                    <th>Tên môn thi</th>
+                                                                    <th>Tín chỉ</th>
+                                                                    <th>Ca thi</th>
+                                                                    <th>Phòng thi</th>
+                                                                    <th>Số lương máy</th>
+                                                                    <th>Thời gian</th>
+
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr each='thesis: ${council.getTheses()}'>
+                                                                    <td class="thesisStdName"
+                                                                        text="${thesis.getStudent().getName()}">
+                                                                    </td>
+                                                                    <td class="thesisStdDob" text="${#dates.format(thesis.student.dob, 'yyyy-MM-dd')}"></td>
+                                                                    <td class="thesisName" text="${thesis.getTitle()}"></td>
+                                                                    <td class="firstThesisReviewer" text="${thesis.getFirstReviewer().getName()}"></td>
+                                                                    <td class="firstReviewerOffice">Trường ĐHCN</td>
+                                                                    <td class="secondThesisReviewer" text="${thesis.getSecondReviewer().getName()}"></td>
+                                                                    <td class="secondReviewerOffice">Trường ĐHCN</td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<input type='hidden' id='rendered_view_path' th:value='@{/faculty/student}'/>-->
+    <input type='hidden' id='export_council_path' th:value='@{/faculty/export/council2}'/>
+    <!-- END PAGE CONTENT -->
+
+    <!-- FOOTER -->
+    <div th:replace='/admin/tpl/footer :: footer'></div>
+    <!-- END FOOTER -->
+</div>
+
+<div id="removeConfirmReviewerModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
+
+
+
+<div id="removeConfirmCouncilModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Xóa hội đồng</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="alert alert-danger">
+                        Bạn chắc chắn muốn xóa hội đồng này?
+                    </div>
+                    <input type="hidden" id="councilIdDel"/>
+
+                    <div class="pull-right">
+                        <button class="btn btn-default pull-right" type="button" data-dismiss="modal">
+                            Đóng
+                        </button>
+
+                        <button class="btn btn-danger pull-right" id="del-council-btn" data-dismiss="modal" type="submit">
+                            Xóa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript" src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/js/plugins/typeahead/bootstrap3-typeahead.js"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript" src="/js/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript" src="/js/plugins/dataTables/datatables.min.js"></script>
+<script type="text/javascript" src="/js/wad/faculty/council.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<!-- END INLINE SCRIPTS -->
+</body>
+</html>

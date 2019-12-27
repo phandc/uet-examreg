@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('./ORM');
+const db = require('./orm');
 
 module.exports = db.sequelize.define('examroom', {
     //attribute

@@ -54,7 +54,23 @@
                             <div class="ibox-content">
                                 <div class="tree">
                                     <ul>
-                                        <li each="class : ${classList}">
+
+
+                                        <% data.forEach(function(c) { %>
+                                            <li>
+                                                <div class="row">
+                                                    <span><%= c.name %></span>
+                                                    <input type="hidden" value="${class.classId}"/>
+                                                    <form action="@{/ws/class}" style="display: inline-block">
+                                                        <i class="fa fa-pencil-square-o font-primary update-btn" aria-hidden="true" title="Cập nhật"></i>
+                                                    </form>
+                                                    <form action="@{'/ws/class/' + ${class.classId}}" style="display: inline-block">
+                                                        <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
+                                                    </form>
+                                                </div>
+                                            </li>
+                                        <% }); %>
+                                     <!--   <li each="class : ${classList}">
                                             <div class="row">
                                                 <span text="${class.name}"></span>
                                                 <input type="hidden" value="${class.classId}"/>
@@ -65,7 +81,9 @@
                                                     <i class="fa fa-close font-danger delete-btn" aria-hidden="true" title="Xóa"></i>
                                                 </form>
                                             </div>
-                                        </li>
+                                        </li>-->
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -153,95 +171,95 @@
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- BEGIN INLINE SCRIPTS -->
-<script inline="javascript">
-    function retrieveTree() {
-        $('#tree').load(/*[[@{/admin/class/list}]]*/  function () {
-            generateTree();
-        });
-    };
+<!--<script inline="javascript">-->
+<!--    function retrieveTree() {-->
+<!--        $('#tree').load(/*[[@{/admin/class/list}]]*/  function () {-->
+<!--            generateTree();-->
+<!--        });-->
+<!--    };-->
 
-    $('#emodal-submit-btn').click(function() {
-        var form = $('#emodal-form');
-        var classId = $('#emodal-id').val();
-        var clazz = {
-            name: $('#emodal-name').val(),
-        };
-        $.ajax({
-            url: form.attr('action') + '/' + classId,
-            data: JSON.stringify(clazz),
-            type: 'POST',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-            },
-            success: function() {
-                $('#emodal-id').val('');
-                $('#emodal-name').val('');
-                retrieveTree();
-                $('#emodal').modal('hide');
-            },
-            error: function(e) {
-                alert(JSON.stringify(e));
-            }
-        });
-    });
+<!--    $('#emodal-submit-btn').click(function() {-->
+<!--        var form = $('#emodal-form');-->
+<!--        var classId = $('#emodal-id').val();-->
+<!--        var clazz = {-->
+<!--            name: $('#emodal-name').val(),-->
+<!--        };-->
+<!--        $.ajax({-->
+<!--            url: form.attr('action') + '/' + classId,-->
+<!--            data: JSON.stringify(clazz),-->
+<!--            type: 'POST',-->
+<!--            beforeSend: function(xhr) {-->
+<!--                xhr.setRequestHeader("Accept", "application/json");-->
+<!--                xhr.setRequestHeader("Content-Type", "application/json");-->
+<!--            },-->
+<!--            success: function() {-->
+<!--                $('#emodal-id').val('');-->
+<!--                $('#emodal-name').val('');-->
+<!--                retrieveTree();-->
+<!--                $('#emodal').modal('hide');-->
+<!--            },-->
+<!--            error: function(e) {-->
+<!--                alert(JSON.stringify(e));-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
 
-    $('#amodal-submit-btn').click(function() {
-        var form = $('#amodal-form');
-        var clazz = {
-            name: $('#amodal-name').val(),
-            faculty: {id: $('#admin-id').val()}
-        };
-        $.ajax({
-            url: form.attr('action'),
-            data: JSON.stringify(clazz),
-            type: 'POST',
-            beforeSend: function(xhr) {
-                xhr.setRequestHeader("Accept", "application/json");
-                xhr.setRequestHeader("Content-Type", "application/json");
-            },
-            success: function() {
-                $('#amodal-name').val('');
-                retrieveTree();
-                $('#amodal').modal('hide');
-            },
-            error: function(e) {
-                alert(JSON.stringify(e));
-            }
-        });
-    });
+<!--    $('#amodal-submit-btn').click(function() {-->
+<!--        var form = $('#amodal-form');-->
+<!--        var clazz = {-->
+<!--            name: $('#amodal-name').val(),-->
+<!--            faculty: {id: $('#admin-id').val()}-->
+<!--        };-->
+<!--        $.ajax({-->
+<!--            url: form.attr('action'),-->
+<!--            data: JSON.stringify(clazz),-->
+<!--            type: 'POST',-->
+<!--            beforeSend: function(xhr) {-->
+<!--                xhr.setRequestHeader("Accept", "application/json");-->
+<!--                xhr.setRequestHeader("Content-Type", "application/json");-->
+<!--            },-->
+<!--            success: function() {-->
+<!--                $('#amodal-name').val('');-->
+<!--                retrieveTree();-->
+<!--                $('#amodal').modal('hide');-->
+<!--            },-->
+<!--            error: function(e) {-->
+<!--                alert(JSON.stringify(e));-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
 
-    $(document).on('click', '#add-btn', function() {
-        $('#amodal').modal('show');
-    });
+<!--    $(document).on('click', '#add-btn', function() {-->
+<!--        $('#amodal').modal('show');-->
+<!--    });-->
 
-    $(document).on('click', '.update-btn', function() {
-        console.log($(this).parent().prev('input'));
-        $('#emodal-id').val($(this).closest('div').find('input').first().val());
-        $('#emodal-name').val($(this).closest('div').find('span').first().text());
-        $('#emodal').modal('show');
-    });
+<!--    $(document).on('click', '.update-btn', function() {-->
+<!--        console.log($(this).parent().prev('input'));-->
+<!--        $('#emodal-id').val($(this).closest('div').find('input').first().val());-->
+<!--        $('#emodal-name').val($(this).closest('div').find('span').first().text());-->
+<!--        $('#emodal').modal('show');-->
+<!--    });-->
 
-    $(document).on('click', '.delete-btn', function() {
-        var form = $(this).closest('form');
-        $.ajax({
-            url: form.attr('action'),
-            type: "DELETE",
-            success: function (rsp) {
-                retrieveTree();
-            },
-            error: function(e) {
-                alert(JSON.stringify(e));
-            }
-        });
-    });
+<!--    $(document).on('click', '.delete-btn', function() {-->
+<!--        var form = $(this).closest('form');-->
+<!--        $.ajax({-->
+<!--            url: form.attr('action'),-->
+<!--            type: "DELETE",-->
+<!--            success: function (rsp) {-->
+<!--                retrieveTree();-->
+<!--            },-->
+<!--            error: function(e) {-->
+<!--                alert(JSON.stringify(e));-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
 
-    var token = $("meta[name='_csrf']").attr("content");
-    var header = $("meta[name='_csrf_header']").attr("content");
-    $(document).ajaxSend(function(e, xhr, options) {
-        xhr.setRequestHeader(header, token);
-    });
-</script>
+<!--    var token = $("meta[name='_csrf']").attr("content");-->
+<!--    var header = $("meta[name='_csrf_header']").attr("content");-->
+<!--    $(document).ajaxSend(function(e, xhr, options) {-->
+<!--        xhr.setRequestHeader(header, token);-->
+<!--    });-->
+<!--</script>-->
 <!-- END INLINE SCRIPTS -->
 </body>
 

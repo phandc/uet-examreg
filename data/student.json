@@ -1,0 +1,92 @@
+[
+  {
+    "id" : "1",
+    "student_code": "17020089",
+    "name" : "Nguyễn Việt An",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "19/01/1999"
+
+  },
+  {
+    "id" : "2",
+    "student_code": "17021022",
+    "name" : "Nguyễn Thành Lộc",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "09/03/1999"
+
+  },
+  {
+    "id" : "3",
+    "student_code": "17020923",
+    "name" : "Lê Quốc Khánh",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "19/05/1999"
+
+  },
+  {
+    "id" : "4",
+    "student_code": "17020873",
+    "name" : "Nguyễn Thành Nam",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "19/06/1999"
+
+  },
+  {
+    "id" : "5",
+    "student_code": "17020902",
+    "name" : "Phạm Hoàng Nam",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "20/08/1999"
+
+  },
+  {
+    "id" : "6",
+    "student_code": "170201002",
+    "name" : "Cao Minh Nhật",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "15/10/1999"
+
+  },
+  {
+    "id" : "7",
+    "student_code": "170201008",
+    "name" : "Phạm Đắc Ngọc Nhật",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "19/08/1999"
+
+  },
+  {
+    "id" : "8",
+    "student_code": "170201324",
+    "name" : "Nguyễn Hồng Quân",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "05/05/1999"
+
+  },
+  {
+    "id" : "9",
+    "student_code": "170201384",
+    "name" : "Dương Hoàng Sơn",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "10/05/1999"
+
+  },
+  {
+    "id" : "10",
+    "student_code": "170201324",
+    "name" : "Thiều Minh Thịnh",
+    "major" : "Khoa Học Máy Tính",
+    "class" : "CACLC3",
+    "dob" : "11/10/1999"
+
+  }
+]

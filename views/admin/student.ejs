@@ -15,7 +15,7 @@
     <!-- END MAIN LEVEL STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLESHEETS -->
-    <link href="/css/plugins/iCheck/custom.css} " rel="stylesheet" media="screen">
+    <link href="/css/plugins/iCheck/custom.css" rel="stylesheet" media="screen">
     <link href="/css/plugins/datepicker/datepicker3.css " rel="stylesheet" media="screen">
     <link  href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
     <link  href="/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
@@ -28,7 +28,7 @@
 <div id="wrapper">
 
     <!-- NAVIGATION -->
-        <%- include("../admin/tpl/navigation") %>
+    <%- include("../admin/tpl/navigation") %>
     <!-- END NAVIGATION -->
 
     <div id="page-wrapper" class="gray-bg">
@@ -220,21 +220,17 @@
                                             <th>Ngành</th>
                                             <th>Lớp</th>
                                             <th>Ngày sinh</th>
-                                            <th>Được đăng kí KL</th>
-                                            <th>Trạng thái KL</th>
                                             <th>Tuỳ chọn</th>
                                         </tr>
                                         </thead>
                                         <tfoot style="display: table-header-group;">
-                                            <th></th>
-                                            <th>Mã sinh viên</th>
-                                            <th>Tên sinh viên</th>
-                                            <th>Ngành</th>
-                                            <th>Lớp</th>
-                                            <th>Ngày sinh</th>
-                                            <th>Được đăng kí KL</th>
-                                            <th>Trạng thái KL</th>
-                                            <th></th>
+                                        <th></th>
+                                        <th>Mã sinh viên</th>
+                                        <th>Tên sinh viên</th>
+                                        <th>Ngành</th>
+                                        <th>Lớp</th>
+                                        <th>Ngày sinh</th>
+                                        <th></th>
                                         </tfoot>
                                         <tbody>
                                         <tr each="student: ${studentList}">
@@ -248,21 +244,6 @@
                                                 <input type="hidden" value="${student.getClazz().getClassId()}">
                                             </td>
                                             <td class="stdDob" text="${#dates.format(student.getDob(), 'yyyy-MM-dd')}"></td>
-                                            <td>
-                                                <input type="hidden" class="stdThesisStatus" value="${student.thesisRegistrable}"/>
-                                                <span switch="${student.thesisRegistrable}">
-                                                    <p case="0" class="bg-danger">Không</p>
-                                                    <p case="1" class="bg-primary">Có</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span switch="${student.theses.size()}">
-                                                    <p case="0" class="bg-danger">Chưa có khóa luận</p>
-                                                    <span case="1" each="thesis : ${student.theses}">
-                                                        <p class="bg-primary" text="${thesis.status.name}"></p>
-                                                    </span>
-                                                </span>
-                                            </td>
                                             <td>
                                                 <i class="fa fa-pencil font-primary" aria-hidden="true"></i>
                                                 <i class="fa fa-trash font-danger" aria-hidden="true"></i>
@@ -576,6 +557,8 @@
     </div>
 </div>
 
+
+
 <!-- BEGIN MAIN LEVEL SCRIPTS -->
 <script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="/js/bootstrap.min.js"></script>
@@ -591,6 +574,31 @@
 <script type="text/javascript"  src="/js/plugins/iCheck/icheck.min.js"></script>
 <script type="text/javascript"  src="/js/plugins/dropzone/dropzone.js"></script>
 <script type="text/javascript"  src="/js/plugins/dataTables/datatables.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+        var d = JSON.parse(localStorage.getItem('student_data'));
+        console.log(d)
+        var student_data = '';
+        if(d){
+                $.each(d, function (key, value) {
+                    student_data += '<tr>';
+                    student_data += '<td><input type="checkbox" class="i-checks" name="cbox"></td>';
+                    student_data += '<td>' + value.student_code + '</td>';
+                    student_data += '<td>' + value.name + '</td>';
+                    student_data += '<td>' + value.major + '</td>';
+                    student_data += '<td>' + value.class + '</td>';
+                    student_data += '<td>' + value.dob + '</td>';
+                    student_data += '<td><i class="fa fa-pencil font-primary"></i><i class="fa fa-trash font-danger"></i></td>';
+                    student_data += '</tr>'
+                });
+                $('#student_table tbody').html(student_data);
+            }
+
+    });
+</script>
+
 <script type="text/javascript"  src="/js/wad/faculty/student.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
