@@ -92,5 +92,11 @@ admin_router.get('/specialization', function(request, response) {
 admin_router.get('/createExam', function(request, response) {
     response.render("admin/createExam");
 });
+admin_router.get('/subject', function(request, response) {
+    response.render("admin/subject");
+});
+admin_router.get('/tmr', function(request, response) {
+    response.render("admin/thesis-modification-request");
+});
 
 module.exports = admin_router;

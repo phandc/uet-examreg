@@ -7,7 +7,6 @@ const multer = require('multer');
 
 const User = require('../model/user');
 
-
 let message = "";
 
 const router = express.Router();
@@ -63,15 +62,13 @@ router.post('/login', (request, response) => {
 
         if(user.dataValues.role === 'student'){
           message = "Đăng nhập thành công!"
-          return response.redirect('student/home');
+          return response.redirect('student/subjects');
         }
         else {
           message = "Đăng nhập thành công!"
           return response.redirect('admin/home');
         }
-
         //  response.send({token : token});
-
       }
       else
       {
@@ -83,11 +80,25 @@ router.post('/login', (request, response) => {
     response.status(400).json({error: err});
   })
 });
-
+router.get('/student/subjects', (request, response) =>{
+  console.log("message :8888888888 " + message);
+  response.render("student/subjects");
+});
+router.get('/student/registry', (request, response) =>{
+  console.log("message :8888888888 " + message);
+  response.render("student/registry");
+});
+router.get('/student/reset-password', (request, response) =>{
+  console.log("message :8888888888 " + message);
+  response.render("student/reset-password");
+});
 router.get('/student/home', (request, response) =>{
   console.log("message : " + message);
   response.render("student/home");
 });
-
+router.get('/admin/tmr', function(request, response) {
+  console.log("message : 88888888888888888 " + message);
+  response.render("admin/thesis-modification-request");
+});
 
 module.exports = router;

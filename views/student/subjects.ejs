@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Danh sách khóa luận - ' + #{app.name}"></title>
+
+    <!-- BEGIN MAIN LEVEL STYLES -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
+    <link href="/css/wad/student/home.css" rel="stylesheet">
+
+    <!-- END MAIN LEVEL STYLES -->
+
+    <!-- BEGIN PAGE LEVEL STYLESHEETS -->
+    <link href="/css/plugins/iCheck/custom.css " rel="stylesheet" media="screen">
+    <link href="/css/plugins/dropzone/dropzone.css" rel="stylesheet">
+    <link href="/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+    <link href="/css/wad/faculty/supervisor.css" rel="stylesheet" media="screen">
+    <link href="/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet" media="screen">
+    <!-- END PAGE LEVEL STYLESHEETS -->
+    <style>
+        #taokithi{
+            height: 30px;
+            wid: 120px;
+            float: right;
+            margin-right: 40px;
+        }
+    </style>
+
+</head>
+<body class="top-navigation" >
+<div id="wrapper">
+
+    <div id="page-wrapper" class="gray-bg">
+
+        <!-- HEADER -->
+        <header>
+            <%- include("../student/tpl/header") %>
+        </header>
+        <!-- END HEADER -->
+
+        <div class="cleafix" style="margin-bottom: 40px"></div>
+
+        <!-- PAGE TITLE -->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2 id="dsdv">Danh sách môn thi </h2>
+            </div>
+        </div>
+        <!-- END PAGE TITLE -->
+
+        <!-- PAGE CONTENT -->
+        <div id="supervisorManager" class="wrapper wrapper-content animated fadeInRight">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <section id="thesis-list">
+                            <div fragment="thesisContent" class="ibox-content">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover" id="thesis-table">
+                                        <thead>
+                                        <tr>
+                                            <th>Tên môn </th>
+                                            <th>Mã môn </th>
+                                            <th>Tín chỉ</th>
+                                            <th>Điều kiện dự thi</th>
+                                            <th>Đăng kí ca thi </th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr each="thesis: ${theses}">
+                                            <input class="thId" type="hidden" value="${thesis.thesisId}">
+                                            <td class="thTitle" text="${thesis.title}"></td>
+                                            <td class="thStudent">
+                                                <div text="${thesis.student.name}"></div>
+                                                <div><em text="'(' + ${thesis.student.studentCode} + ' - ' + ${thesis.student.clazz.name} +')'"></em></div>
+                                            </td>
+                                            <td class="thSupervisor">
+                                                <div text="${thesis.firstSupervisor.name}"></div>
+                                                <div if="${thesis.secondSupervisor}" text="${thesis.secondSupervisor.name}"></div>
+                                            </td>
+                                            <td class="thStatus" text="${thesis.status.name}"></td>
+                                            <td >
+                                                <button class="pull-right btn btn-warning" id="btn-edit" style="display:block;">Chọn ca thi </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="accepted_thesis_export_path" value="../faculty/export/thesis/accepted"/>
+            <input type="hidden" id="protected_thesis_export_path" value="../faculty/export/thesis/protected"/>
+            <input type="hidden" id="update_thesis_path" value="../ws/thesis/update"/>
+            <input type="hidden" id="render_path" value="../faculty/thesis"/>
+        </div>
+        <!-- END PAGE CONTENT -->
+    </div>
+</div>
+
+<!-- FOOTER -->
+<%- include("../student/tpl/footer") %>
+<!-- END FOOTER -->
+
+<!-- BEGIN MAIN LEVEL SCRIPTS -->
+<script type="text/javascript"  src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript"  src="/js/bootstrap.min.js"></script>
+<script type="text/javascript"  src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript"  src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- END MAIN LEVEL SCRIPTS -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script type="text/javascript"  src="/js/plugins/bootstrap-markdown/bootstrap-markdown.js"></script>
+<script type="text/javascript"  src="/js/plugins/bootstrap-markdown/markdown.js"></script>
+<script type="text/javascript"  src="/js/plugins/iCheck/icheck.min.js"></script>
+<script type="text/javascript"  src="/js/plugins/dropzone/dropzone.js"></script>
+<script type="text/javascript"  src="/js/plugins/dataTables/datatables.min.js"></script>
+<script type="text/javascript"  src="/js/wad/faculty/thesis.js"></script>
+
+
+<script type="text/javascript"  src="/js/plugins/validate/jquery.validate.min.js"></script>
+
+<script type="text/javascript"  src="/js/plugins/datepicker/bootstrap-datepicker.js"></script>
+
+
+
+<script type="text/javascript"  src="/js/wad/faculty/student.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+
+<!-- BEGIN CUSTOM SCRIPTS -->
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
+<!-- END CUSTOM SCRIPTS -->
+
+<!-- BEGIN INLINE SCRIPTS -->
+<!-- END INLINE SCRIPTS -->
+</body>
+
+</html>
