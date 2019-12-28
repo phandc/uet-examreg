@@ -87,25 +87,22 @@ router.post('/login', (request, response) => {
   })
 });
 router.get('/student/subjects', (request, response) =>{
-  console.log("message :8888888888 " + message);
   response.render("student/subjects");
 });
 router.get('/student/registry', (request, response) =>{
-  console.log("message :8888888888 " + message);
   response.render("student/registry");
 });
 router.get('/student/reset-password', (request, response) =>{
-  console.log("message :8888888888 " + message);
   response.render("student/reset-password");
 });
 router.get('/student/home', (request, response) =>{
-  console.log("message : " + message);
   response.render("student/home");
 });
-
-
+router.get('/student/select-shift', (request, response) =>{
+  response.render("student/select-shift");
+});
 router.get('/admin/home', (request, response) =>{
-  console.log("message : " + message);
+
   response.render("admin/home");
-})
+});
 module.exports = router;

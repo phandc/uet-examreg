@@ -24,10 +24,6 @@
     <link href="/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
     <style>
-        .center {
-            position: absolute;
-            left: 50%;
-        }
         #taokithi{
             height: 30px;
             wid: 120px;
@@ -71,8 +67,9 @@
                                         <tr>
                                             <th>Tên môn </th>
                                             <th>Mã môn </th>
-                                            <th>Tín chỉ</th>
-                                            <th>Điều kiện dự thi</th>
+                                            <th>Ca thi </th>
+                                            <th>Phòng thi </th>
+                                            <th>Số lượng máy </th>
                                             <th>Đăng kí ca thi </th>
                                         </tr>
                                         </thead>
@@ -89,9 +86,8 @@
                                                 <div if="${thesis.secondSupervisor}" text="${thesis.secondSupervisor.name}"></div>
                                             </td>
                                             <td class="thStatus" text="${thesis.status.name}"></td>
-                                            <td >
-                                               <a href="../student/select-shift"><button class=" pull-right btn btn-warning " id="btn-edit" style=" display:block;"> Chọn ca thi </button></a>
-                                            </td>
+                                            <td> </td>
+                                            <td> <button class="pull-right btn btn-warning" id="btn-edit" style="display:block;">Đăng kí </button></td>
                                         </tr>
                                         </tbody>
                                     </table>

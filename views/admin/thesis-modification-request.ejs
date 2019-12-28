@@ -1,35 +1,34 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" th:charset="UTF-8">
+<html >
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-    <title th:text="'Xử lý yêu cầu - ' + #{app.name}"></title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+    <title text="'Xử lý yêu cầu - ' + #{app.name}"></title>
 
     <!-- BEGIN MAIN LEVEL STYLES -->
-    <link th:href="@{/resources/css/bootstrap.min.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/vendor/font-awesome/css/font-awesome.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/animate.css}" rel="stylesheet" media="screen">
-    <link th:href="@{/resources/css/style.css}" rel="stylesheet" media="screen">
+    <link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" media="screen">
+    <link href="/css/animate.css" rel="stylesheet" media="screen">
+    <link href="/css/style.css" rel="stylesheet" media="screen">
     <!-- END MAIN LEVEL STYLES -->
 
     <!-- BEGIN PAGE LEVEL STYLESHEETS -->
-    <link th:href="@{/resources/css/wad/admin/treeview.css}" rel="stylesheet" media="screen">
+    <link href="/css/wad/admin/treeview.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
-
 </head>
 <body>
 <div id="wrapper">
 
     <!-- NAVIGATION -->
-    <div th:replace="/faculty/tpl/header :: navigation"></div>
+    <%- include("../admin/tpl/navigation") %>
     <!-- END NAVIGATION -->
 
     <div id="page-wrapper" class="gray-bg">
 
         <!-- HEADER -->
-        <div th:replace="/faculty/tpl/header :: header"></div>
+        <%- include("../admin/tpl/header") %>
         <!-- END HEADER -->
 
         <!-- PAGE TITLE -->
@@ -44,9 +43,9 @@
         <div class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins border-bottom" th:each="thesis : ${canceledTheses}">
+                    <div class="ibox float-e-margins border-bottom" each="thesis : ${canceledTheses}">
                         <div class="ibox-title">
-                            <h5><strong>Yêu cầu hủy khóa luận: </strong><em th:text="${thesis.title}">axyz</em></h5>
+                            <h5><strong>Yêu cầu hủy khóa luận: </strong><em text="${thesis.title}">axyz</em></h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-down"></i>
@@ -54,22 +53,22 @@
                             </div>
                         </div>
                         <div class="ibox-content" style="display: none;">
-                            <p><strong>Sinh viên: </strong><span th:text="${thesis.student.name}"></span></p>
-                            <p><strong>Lớp: </strong><span th:text="${thesis.student.clazz.name}"></span></p>
-                            <p><strong>Email: </strong><span th:text="${thesis.student.user.email}"></span></p>
-                            <p><strong>Mô tả: </strong><span th:text="${thesis.description}"></span></p>
+                            <p><strong>Sinh viên: </strong><span text="${thesis.student.name}"></span></p>
+                            <p><strong>Lớp: </strong><span text="${thesis.student.clazz.name}"></span></p>
+                            <p><strong>Email: </strong><span text="${thesis.student.user.email}"></span></p>
+                            <p><strong>Mô tả: </strong><span text="${thesis.description}"></span></p>
                         </div>
                         <div class="ibox-footer" style="height: 55px;">
                             <span class="pull-right">
-                                <form name="thesis_action" th:action="@{'/ws/thesis/allow-cancel/' + ${thesis.thesisId}}" method="post" style="display: inline-block">
-                                    <input type="hidden" th:value="${thesis.thesisId}"/>
+                                <form name="thesis_action" action="@{'/ws/thesis/allow-cancel/' + ${thesis.thesisId}}" method="post" style="display: inline-block">
+                                    <input type="hidden" value="${thesis.thesisId}"/>
                                     <button type="submit" class="btn btn-primary">Chấp nhận</button>
                                 </form>
-                                <form name="thesis_action" th:action="@{'/ws/thesis/deny-cancel/' + ${thesis.thesisId}}" method="post" style="display: inline-block">
-                                    <input type="hidden" th:value="${thesis.thesisId}"/>
+                                <form name="thesis_action" action="@{'/ws/thesis/deny-cancel/' + ${thesis.thesisId}}" method="post" style="display: inline-block">
+                                    <input type="hidden" value="${thesis.thesisId}"/>
                                     <button type="submit" class="btn btn-danger">Từ chối</button>
                                 </form>
-                                <form name="export_thesis" th:action="@{'/faculty/export/thesis/cancel/' + ${thesis.thesisId}}" method="get" style="display: inline-block">
+                                <form name="export_thesis" action="@{'/faculty/export/thesis/cancel/' + ${thesis.thesisId}}" method="get" style="display: inline-block">
                                     <button type="submit" class="btn btn-warning">Xuất văn bản</button>
                                 </form>
                             </span>
@@ -80,9 +79,9 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="ibox float-e-margins border-bottom" th:each="thesis : ${modifiedTheses}">
+                    <div class="ibox float-e-margins border-bottom" each="thesis : ${modifiedTheses}">
                         <div class="ibox-title">
-                            <h5><strong>Yêu cầu sửa khóa luận: </strong><em th:text="${thesis.title}">axyz</em></h5>
+                            <h5><strong>Yêu cầu sửa khóa luận: </strong><em text="${thesis.title}">axyz</em></h5>
                             <div class="ibox-tools">
                                 <a class="collapse-link">
                                     <i class="fa fa-chevron-down"></i>
@@ -90,22 +89,22 @@
                             </div>
                         </div>
                         <div class="ibox-content" style="display: none;">
-                            <p><strong>Sinh viên: </strong><span th:text="${thesis.student.name}"></span></p>
-                            <p><strong>Lớp: </strong><span th:text="${thesis.student.clazz.name}"></span></p>
-                            <p><strong>Email: </strong><span th:text="${thesis.student.user.email}"></span></p>
+                            <p><strong>Sinh viên: </strong><span text="${thesis.student.name}"></span></p>
+                            <p><strong>Lớp: </strong><span text="${thesis.student.clazz.name}"></span></p>
+                            <p><strong>Email: </strong><span text="${thesis.student.user.email}"></span></p>
 
                         </div>
                         <div class="ibox-footer" style="height: 55px;">
                                 <span class="pull-right">
-                                    <form name="thesis_action" th:action="@{'/ws/thesis/allow-modify/' + ${thesis.thesisId}}" method="post" style="display: inline-block">
-                                        <input type="hidden" th:value="${thesis.thesisId}"/>
+                                    <form name="thesis_action" action="@{'/ws/thesis/allow-modify/' + ${thesis.thesisId}}" method="post" style="display: inline-block">
+                                        <input type="hidden" value="${thesis.thesisId}"/>
                                         <button type="submit" class="btn btn-primary"> Chấp nhận</button>
                                     </form>
                                     <form name="thesis_action" action="#" method="post" style="display: inline-block">
-                                        <input type="hidden" th:value="${thesis.thesisId}"/>
+                                        <input type="hidden" value="${thesis.thesisId}"/>
                                         <button type="submit" class="btn btn-danger">Từ chối</button>
                                     </form>
-                                    <form name="export_thesis" th:action="@{'/faculty/export/thesis/modify/' + ${thesis.thesisId}}" method="get" style="display: inline-block">
+                                    <form name="export_thesis" action="@{'/faculty/export/thesis/modify/' + ${thesis.thesisId}}" method="get" style="display: inline-block">
                                         <button type="submit" class="btn btn-warning">Xuất văn bản</button>
                                     </form>
                                 </span>
@@ -117,26 +116,26 @@
         <!-- END PAGE CONTENT -->
 
         <!-- FOOTER -->
-        <div th:replace="/faculty/tpl/footer :: footer"></div>
+        <%- include("../admin/tpl/footer") %>
         <!-- END FOOTER -->
 
     </div>
 </div>
 
 <!-- BEGIN MAIN LEVEL SCRIPTS -->
-<script type="text/javascript" th:src="@{/resources/js/jquery-2.1.1.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/bootstrap.min.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
-<script type="text/javascript" th:src="@{/resources/js/plugins/slimscroll/jquery.slimscroll.min.js}"></script>
+<script type="text/javascript" src="/js/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script type="text/javascript" src="/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 <!-- END MAIN LEVEL SCRIPTS -->
 
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
-<script type="text/javascript" th:src="@{/resources/js/wad/treeview.js}"></script>
+<script type="text/javascript" src="/js/wad/treeview.js"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
 <!-- BEGIN CUSTOM SCRIPTS -->
-<script th:src="@{/resources/js/inspinia.js}"></script>
-<script th:src="@{/resources/js/plugins/pace/pace.min.js}"></script>
+<script src="/js/inspinia.js"></script>
+<script src="/js/plugins/pace/pace.min.js"></script>
 <!-- END CUSTOM SCRIPTS -->
 
 <!-- BEGIN INLINE SCRIPTS -->
