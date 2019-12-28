@@ -101,6 +101,9 @@ router.get('/student/home', (request, response) =>{
 router.get('/student/select-shift', (request, response) =>{
   response.render("student/select-shift");
 });
+router.get('/student/exam-schedule', (request, response) =>{
+  response.render("student/exam-schedule");
+});
 router.get('/admin/home', (request, response) =>{
 
   response.render("admin/home");

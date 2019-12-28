@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,6 +24,9 @@
     <link href="/css/plugins/bootstrap-markdown/bootstrap-markdown.min.css" rel="stylesheet" media="screen">
     <!-- END PAGE LEVEL STYLESHEETS -->
     <style>
+        .subjects {
+            border-top:1px solid #000; border-left:1px solid #000; text-align:center;
+        }
         #taokithi{
             height: 30px;
             wid: 120px;
@@ -35,9 +38,7 @@
 </head>
 <body class="top-navigation" >
 <div id="wrapper">
-
     <div id="page-wrapper" class="gray-bg">
-
         <!-- HEADER -->
         <header>
             <%- include("../student/tpl/header") %>
@@ -48,19 +49,86 @@
 
         <!-- PAGE TITLE -->
         <div class="row wrapper border-bottom white-bg page-heading">
-            <div class="col-lg-10">
-                <h2 id="dsdv">Danh sách ca thi : </h2>
+            <div class="col-lg-10" style="width: 100%">
+                <h2 id="dsdv" style="margin: auto; margin-top: 10px ; margin-bottom: -25px;">Lịch thi </h2>
+                <button class="btn btn-primary"style="float: right; margin-right: 10px ; "> In lich Thi </button>
+                <button class="btn btn-primary"style="float: right; margin-right: 20px ;";> Download lịch thi </button>
             </div>
+
         </div>
         <!-- END PAGE TITLE -->
 
         <!-- PAGE CONTENT -->
-        <div id="supervisorManager" class="wrapper wrapper-content animated fadeInRight">
+        <div class="print-area">
+            <table style="width: 100%; border: none; border-collapse: collapse;">
+                <tbody><tr>
+                    <td style="width: 40%; text-align: center; vertical-align: top;">
+                        <p style="text-transform: uppercase; font-weight: normal; margin: 0; padding: 0; font-size: 12pt;">ĐẠI HỌC QUỐC GIA HÀ NỘI</p>
+                        <p style="text-transform:uppercase; margin: 0; padding: 0; font-size:12pt; font-weight:bold;">TRƯỜNG ĐẠI HỌC CÔNG NGHỆ</p>
+                    </td>
+                    <td style="width: 60%; text-align: center; vertical-align: top;">
+                        <p style="text-transform: uppercase; font-weight: bold; margin: 0; padding: 0; font-size: 12pt;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</p>
+                        <p style="margin: 0; padding: 0; font-weight: bold;">Độc lập - Tự do - Hạnh phúc</p>
+                    </td>
+                </tr>
+                </tbody></table>
+            <h1 style="text-align: center; text-transform: uppercase; font-weight: bold; font-size: 14pt; margin: 30px 0 0 0; padding: 0;">KẾT QUẢ ĐĂNG KÝ CA THI</h1>
+            <table style="width: 100%; border: none; border-collapse: collapse; margin-top: 30px;">
+                <tbody><tr>
+                    <td>Họ và tên:</td>
+                    <td> </td>
+                    <td>Ngày sinh:</td>
+                    <td> </td>
+                    <td>Mã sinh viên:</td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td>Ngành:</td>
+                    <td> </td>
+                    <td> Lớp:</td>
+                    <td> </td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+                </tbody></table>
+            <br>
+            <table style="border:none; width: 100%; border-collapse:collapse;">
+                <tbody><tr>
+                    <th class="subjects">STT</th>
+                    <th class="subjects">Mã môn học</th>
+                    <th class="subjects">Môn học</th>
+                    <th class="subjects">Số tín chỉ</th>
+                    <th class="subjects">Tên môn </th>
+                    <th class="subjects">Ngày</th>
+                    <th class="subjects">Ca thi</th>
+                    <th class="subjects" style="border-right: 1px solid #000;">Giảng đường</th>
+                </tr>
+                <tr>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center; border-bottom:1px solid #000;"></td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;border-bottom:1px solid #000;">&nbsp;</td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;border-bottom:1px solid #000;">&nbsp;</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;border-bottom:1px solid #000;"></td>
+                    <td style="border-top:1px solid #000; border-left:1px solid #000;border-bottom:1px solid #000;">&nbsp;</td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;border-bottom:1px solid #000;"></td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; text-align: center;border-bottom:1px solid #000;"></td>
+                    <td style="border-top: 1px solid #000; border-left: 1px solid #000; border-right: 1px solid #000; text-align: center;border-bottom:1px solid #000;"></td>
+                </tr>
+
+                </tbody></table>
+        </div>
+
+
+        <!--<div id="supervisorManager" class="wrapper wrapper-content animated fadeInRight">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <section id="thesis-list">
                             <div fragment="thesisContent" class="ibox-content">
+                                <div>
+                                    <p> Họ tên sinh viên :</p>
+                                    <p> Lớp :</p>
+                                    <p> Ngành :</p>
+                                </div>
                                 <div class="table-responsive">
                                     <table class="table table-striped table-bordered table-hover" id="thesis-table">
                                         <thead>
@@ -89,7 +157,7 @@
                                             <td class="thStatus" text="${thesis.status.name}"></td>
                                             <td> </td>
                                             <td> </td>
-                                            <td> <button class="pull-right btn btn-warning" id="btn-edit" style="display:block;">Đăng kí </button></td>
+                                            <td> </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -103,9 +171,10 @@
             <input type="hidden" id="protected_thesis_export_path" value="../faculty/export/thesis/protected"/>
             <input type="hidden" id="update_thesis_path" value="../ws/thesis/update"/>
             <input type="hidden" id="render_path" value="../faculty/thesis"/>
-        </div>
+        </div>-->
         <!-- END PAGE CONTENT -->
     </div>
+
 </div>
 
 <!-- FOOTER -->
